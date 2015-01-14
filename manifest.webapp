@@ -1,0 +1,25 @@
+{
+  "version": "0.1",
+  "name": "WonderFuel",
+  "description": "Find All gas station localized around you",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/app-icons/app-icon.png",
+    "48": "/app-icons/app-icon.png",
+    "128": "/app-icons/app-icon.png"
+  },
+  "developer": {
+    "name": "BestTeam",
+    "url": ""
+  },
+  "default_locale": "en",
+  "type": "privileged",
+  "permissions": {
+        "geolocation": {
+            "description" : "Used to locate me"
+        },
+		"systemXHR": { 
+		    "description": "Required to make Network calls" 
+	    }
+    }
+}

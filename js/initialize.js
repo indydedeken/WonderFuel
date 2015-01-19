@@ -2,7 +2,7 @@ function init()
 {
 	if (navigator.geolocation)
 	{
-		navigator.geolocation.getCurrentPosition(show, errorHandler, {enableHighAccuracy:true});
+		navigator.geolocation.watchPosition(show, errorHandler, {enableHighAccuracy:true, timeout: 20000, maximumAge: 0});
 	}
 	else 
 	{

@@ -15,7 +15,7 @@ function show(position)
 	var myLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	
 	var mapOptions = {
-		zoom: 15,
+		zoom: 12,
 		center: myLatLng,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
@@ -33,6 +33,19 @@ function show(position)
 		icon: 'img/geoloc.png',
 		animation : google.maps.Animation.DROP
 	});
+	
+	var populationOptions = {
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#F2F2F2',
+      fillOpacity: 0.35,
+      map: map,
+      center: myLatLng,
+      radius: 50*100
+    };
+	
+	cityCircle = new google.maps.Circle(populationOptions);
 
 	  var widgetDiv = document.getElementById('text');
  	 map.controls[google.maps.ControlPosition.TOP_LEFT].push(widgetDiv);

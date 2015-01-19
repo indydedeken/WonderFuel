@@ -2,8 +2,8 @@ function init()
 {
 	if (navigator.geolocation)
 	{
-        navigator.geolocation.getCurrentPosition(show, errorHandler, {enableHighAccuracy:true});
-    }
+		navigator.geolocation.getCurrentPosition(show, errorHandler, {enableHighAccuracy:true});
+	}
 	else 
 	{
 		alert("Your Browser does not support GeoLocation.");
@@ -16,8 +16,8 @@ function show(position)
 	
 	var mapOptions = {
 		zoom: 15,
-        center: myLatLng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+		center: myLatLng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	
 	var $content = $("#map div:jqmData(role=content)");
@@ -26,13 +26,17 @@ function show(position)
 	var map = new google.maps.Map($content[0], mapOptions);
 	
 	$.mobile.changePage($("#map"));
-	 
+
 	var myPositionMarker = new google.maps.Marker({
 		position: myLatLng,
 		map: map,
 		icon: 'img/geoloc.png',
 		animation : google.maps.Animation.DROP
 	});
+
+	  var widgetDiv = document.getElementById('text');
+ 	 map.controls[google.maps.ControlPosition.TOP_LEFT].push(widgetDiv);
+
 }
 
 function errorHandler(error)

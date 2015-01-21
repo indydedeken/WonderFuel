@@ -31,8 +31,8 @@ function showMyPosition(position)
 		}).addTo( map );
 		
 		mapInitialized = true;
-		myPosition = L.marker(latLng).addTo(map);
-		myPositionRadius = L.circle(latLng, 1000*5, {color: 'red', fillColor: '#f03',fillOpacity: 0.5}).addTo(map);
+		myPosition = L.circleMarker(latLng,{color: 'blue',fillOpacity: 1}).addTo(map);
+		myPositionRadius = L.circle(latLng, 1000*5, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
 	}
 	else
 	{

@@ -2,6 +2,11 @@ var map, myPosition, myPositionRadius;
 var mapInitialized = false;
 var myPosition;
 
+function localizeStations()
+{
+	// TODO
+}
+
 function init()
 {
 	if (navigator.geolocation)
@@ -64,5 +69,12 @@ function errorHandler(error)
 }
 
 $(document).ready(function(){
+	$('#startModal').modal({
+		keyboard: false,
+		show : true
+	});
+	
+	$('#start').on('click', localizeStations);
+	
 	init();
 });

@@ -1,18 +1,39 @@
 var map, myPosition, myPositionRadius;
-var mapInitialized = false;
+var mapInitialized = false, routeInitialized = false;
 var results = new Array();
+var route;
+
+function displayRouting(marker)
+{
+	route = L.Routing.control({
+		waypoints: [
+			L.latLng(myPosition.getLatLng()),
+			marker.latlng
+		]
+	}).addTo(map);
+}
 
 function localizeStations()
 {
-	var stations = searchStations(myPosition.getLatLng());
+	//var stations = searchStations(myPosition.getLatLng());
 	
 	var i;
-	for (i=0;i<stations.length;i++)
+	results.push(new L.marker([48.6, 2.4]));
+	results[0].addTo(map);
+	results[0].on('mouseover', displayRouting);
+	results[0].bindPopup("Nom de la station service : <NOM> <br/> Gazole : <PRIX> <br/> SP95 : <PRIX>");
+	
+	/*for (i=0;i<stations.length;i++)
 	{
 		results.push(new L.marker([stations[i].latitude, stations[i].longitude]).bindPopup("Nom de la station service : <NOM> <br/> Gazole : <PRIX> <br/> SP95 : <PRIX>"));
 		results[i].dragging.disable();
 		results[i].addTo(map);
-	}
+		results[i].on('click', function(e)
+		{
+			alert(e.latlng); // e is an event object (MouseEvent in this case)
+		});
+	}*/
+	
 }
 
 function init()

@@ -2,20 +2,9 @@ var map, myPosition, myPositionRadius;
 var mapInitialized = false;
 var myPosition;
 
-
 function localizeStations()
 {
-	
-}
-
-function showStartModal()
-{
-	$('#startModal').modal({
-		keyboard: false,
-		show : true
-	});
-	
-	$('#start').on('click', localizeStations);
+	// TODO
 }
 
 function init()
@@ -41,10 +30,23 @@ function showMyPosition(position)
 			zoom: 13
 		});
 		
-		L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
-			subdomains: ['otile1','otile2','otile3','otile4']
-		}).addTo( map );
+
+		var currentdate = new Date(); 
+
+		//Test sur la date : si supérieur à 19h alors on passe en mode nuit
+
+		if(currentdate.getHours() >> 19){
+
+			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
+
+		}else{
+
+			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+				subdomains: ['otile1','otile2','otile3','otile4']
+			}).addTo( map );
+
+		}
 		
 		mapInitialized = true;
 		myPosition = L.circleMarker(latLng,{color: 'blue',fillOpacity: 1}).addTo(map);
@@ -80,6 +82,12 @@ function errorHandler(error)
 }
 
 $(document).ready(function(){
-	showStartModal();
+	$('#startModal').modal({
+		keyboard: false,
+		show : true
+	});
+	
+	$('#start').on('click', localizeStations);
+	
 	init();
 });

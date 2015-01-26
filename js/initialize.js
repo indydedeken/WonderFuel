@@ -1,10 +1,18 @@
 var map, myPosition, myPositionRadius;
 var mapInitialized = false;
-var myPosition;
+var results = new Array();
 
 function localizeStations()
 {
-	// TODO
+	var stations = searchStations(myPosition.getLatLng());
+	
+	var i;
+	for (i=0;i<stations.length;i++)
+	{
+		results.push(new L.marker([stations[i].latitude, stations[i].longitude]).bindPopup("Nom de la station service : <NOM> <br/> Gazole : <PRIX> <br/> SP95 : <PRIX>"));
+		results[i].dragging.disable();
+		results[i].addTo(map);
+	}
 }
 
 function init()
@@ -27,7 +35,13 @@ function showMyPosition(position)
 		map = L.map('map',
 		{
 			center: latLng,
-			zoom: 13
+			zoom: 13, 
+			touchZoom : false,
+			scrollWheelZoom : false,
+			doubleClickZoom : false,
+			boxZoom : false,
+			keyboard: false,
+			minZoom: 3
 		});
 		
 

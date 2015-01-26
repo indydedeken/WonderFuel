@@ -8,3 +8,7 @@
 .leaflet-routing-container {
 	display: none;
 }
+
+.waitPosition{
+	display: inline-block;
+}

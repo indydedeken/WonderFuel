@@ -2,6 +2,7 @@ var map, myPosition, myPositionRadius;
 var mapInitialized = false, routeInitialized = false;
 var results = new Array();
 var route;
+var stations;
 
 function displayRouting(marker)
 {
@@ -17,6 +18,16 @@ function localizeStations()
 {
 	//var stations = searchStations(myPosition.getLatLng());
 	
+	searchStations(myPosition.getLatLng(), function(datas){
+
+		// ICI TU FAIS TON TRAITEMENT
+		// RECUPERATION DES DONNEES : variable datas.
+		// datas est un tableau à parcourir. Chaque objet du tableau est constituée de la manière suivante :
+		// adresse/ville/latitude/longitude/tableau de Prix (nom/prix)
+		// Regardes Firebug pour voir le résultat du console.log suivant :
+ 		console.log(datas); 
+	});
+
 	var i;
 	results.push(new L.marker([48.6, 2.4]));
 	results[0].addTo(map);
@@ -92,6 +103,9 @@ function showMyPosition(position)
 		myPosition.setLatLng(latLng).update();
 		myPositionRadius.setLatLng(latLng).update();
 	}
+
+	$(".waitPosition").hide();
+	$('#start').prop('disabled', false);
 }
 
 function errorHandler(error)
@@ -117,12 +131,18 @@ function errorHandler(error)
 }
 
 $(document).ready(function(){
+
 	$('#startModal').modal({
 		keyboard: false,
 		show : true
 	});
 	
+	// Affichage de la div prévenant de la recherche de position actuelle et on rend impossible le clique
+	// du bouton start tant que la position n'est pas trouvée
+	$(".waitPosition").show();
+	$('#start').prop('disabled', true);
+
 	$('#start').on('click', localizeStations);
-	
+		
 	init();
 });

@@ -11,6 +11,9 @@
       <script type='text/javascript' src='lib/leaflet-providers.js'></script>
 	  <script type='text/javascript' src='lib/leaflet-routing-machine.js'></script>
 	  <script type='text/javascript' src='lib/bootstrap/js/bootstrap.js'></script>
+	  <script type="text/javascript" src="lib/jszip.js"></script>
+	  <script type="text/javascript" src="lib/jszip-utils.js"></script>
+	  <script type='text/javascript' src='js/Datas.js'></script>
    </head>
  
    <body>
@@ -31,12 +34,14 @@
 				<p>-When you click on the gas sation marker, you can display the route from our position (Route is update).</p>
 			  </div>
 			  <div class="modal-footer">
+			  	<div class="waitPosition">Recherche en cours de votre position actuelle...</div>
 				<button id="start" type="button" class="btn btn-primary" data-dismiss="modal">Start</button>
 			  </div>
 			</div>
 		  </div>
 		</div>
 	  
+
       <script type='text/javascript' src='js/initialize.js'></script>
    </body>
 </html>

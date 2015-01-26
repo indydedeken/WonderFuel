@@ -35,7 +35,7 @@ function showMyPosition(position)
 
 		//Test sur la date : si supérieur à 19h alors on passe en mode nuit
 
-		if(currentdate.getHours() >> 19){
+		if(currentdate.getHours() >> 19 | currentdate.getHours() << 6){
 
 			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
 

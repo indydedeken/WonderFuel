@@ -2,9 +2,20 @@ var map, myPosition, myPositionRadius;
 var mapInitialized = false;
 var myPosition;
 
+
 function localizeStations()
 {
-	// TODO
+	
+}
+
+function showStartModal()
+{
+	$('#startModal').modal({
+		keyboard: false,
+		show : true
+	});
+	
+	$('#start').on('click', localizeStations);
 }
 
 function init()
@@ -69,12 +80,6 @@ function errorHandler(error)
 }
 
 $(document).ready(function(){
-	$('#startModal').modal({
-		keyboard: false,
-		show : true
-	});
-	
-	$('#start').on('click', localizeStations);
-	
+	showStartModal();
 	init();
 });

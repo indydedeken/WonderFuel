@@ -38,6 +38,14 @@ var fadeInMarker = L.Marker.extend({
     }
 });
 
+var stationIcon = L.icon({
+    iconUrl: 'img/station-icon.png',
+    iconRetinaUrl: 'img/station-icon.png',
+    iconSize: [29, 24],
+    iconAnchor: [9, 21],
+    popupAnchor: [0, -14]
+});
+
 function displayRouting(marker)
 {
 	if (!routeInitialized)
@@ -115,7 +123,7 @@ function localizeStations()
 				popupContent += "services indisponibles <br>"
 			}
 			
-			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude]).bindPopup(popupContent));
+			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
 			results[i].on('mouseover', displayRouting(results[i]));
 		}

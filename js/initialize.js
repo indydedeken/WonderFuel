@@ -142,6 +142,14 @@ function errorHandler(error)
     }
 }
 
+
+function displayfilters(){
+
+	$('#filtre').toggle();
+
+}
+
+
 $(document).ready(function(){
 
 	$('#startModal').modal({
@@ -155,6 +163,8 @@ $(document).ready(function(){
 	$('#start').prop('disabled', true);
 
 	$('#start').on('click', localizeStations);
+
+	$('#btnfiltre').on('click',displayfilters);
 		
 	init();
 });

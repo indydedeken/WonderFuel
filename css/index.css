@@ -17,14 +17,13 @@
 {
 
 	display:none;
-
 	z-index:1;
-	height: 47%;
 	width: 100%;
 	border: 1px solid;
 	background-color: white;
 	position:absolute;
 	bottom:0;
+	height: 47%;
 
 }
 

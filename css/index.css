@@ -1,3 +1,4 @@
+/* -------- MAP ---------- */
 #map
 {
 	width: 100%;
@@ -13,6 +14,7 @@
 	display: inline-block;
 }
 
+/* --------- Popup Content ---------- */
 .cercleLegende {
     border-radius:50%;
     width:10px;
@@ -28,6 +30,8 @@
 .close {
     background: rgb(255,0,0);
 }
+
+/* ---------- FILTRE ---------------- */
 #filtre
 {
 
@@ -39,7 +43,6 @@
 	position:absolute;
 	bottom:0;
 	height: 47%;
-
 }
 
 #btnfiltre{
@@ -47,5 +50,4 @@
 	z-index:1;
 	position:absolute;
 	bottom:0;
-	
 }

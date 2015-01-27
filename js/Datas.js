@@ -73,8 +73,8 @@ function getInfosByLatitudeLongitude(datas, positionActuelle){
 				 	);
 
 				 	// Récupération de la ville et de l'adresse
-				 	var ville = $(this).find("adresse").text();
-				 	var adresse = $(this).find("ville").text();
+				 	var ville = $(this).find("ville").text();
+				 	var adresse = $(this).find("adresse").text();
 
 				 	listOfStations.push( 
 				 		{'latitude' : lat, 'longitude' : long, 'ville' : ville, 'adresse' : adresse, 'prix' : listOfPetrols} )

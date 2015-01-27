@@ -60,6 +60,7 @@ function displayRouting(marker)
 
 function localizeStations()
 {
+	$("#spinner").show();
 	searchStations(myPosition.getLatLng(), function(datas){
 
 		// ICI TU FAIS TON TRAITEMENT
@@ -74,7 +75,7 @@ function localizeStations()
 		var popupContent;
  		for (i=0;i<datas.length;i++)
 		{
-			if ((datas[i].heureOuverture == datas[i].heureFermeture) || (datas[i].heureOuverture < currentHours && datas[i].heureFermeture > currentHours))
+			if ((datas[i].heureOuverture == datas[i].heureFermeture) || (datas[i].heureOuverture <= currentHours && datas[i].heureFermeture >= currentHours))
 			{
 				popupContent = "<span class='cercleLegende open'></span> ";
 			}
@@ -117,6 +118,8 @@ function localizeStations()
 			results[i].addTo(map);
 			results[i].on('mouseover', displayRouting(results[i]));
 		}
+		
+		$("#spinner").hide();
 	});
 }
 

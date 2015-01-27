@@ -50,11 +50,11 @@ function getInfosByLatitudeLongitude(datas, positionActuelle){
 			function(){
 
 				 // get latitude/longitude de chaque entrée
-				 var lat = $(this).attr('latitude') / 100000;
-				 var long = $(this).attr('longitude') / 100000;
+				 var lat = $(this).attr('latitude');
+				 var long = $(this).attr('longitude');
 
 				 // Et on recupère la distance entre la position actuelle et la station à vol d'oiseau
-				 result = positionActuelle.distanceTo([lat, long])/1000;
+				 result = positionActuelle.distanceTo([lat/100000, long/100000])/1000;
 
 				 // Moins de 10km ? OK on ajoute la station dans la liste
 				 if( result <= 5){

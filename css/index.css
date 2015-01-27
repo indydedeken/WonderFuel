@@ -12,3 +12,26 @@
 .waitPosition{
 	display: inline-block;
 }
+
+#filtre
+{
+
+	display:none;
+
+	z-index:1;
+	height: 47%;
+	width: 100%;
+	border: 1px solid;
+	background-color: white;
+	position:absolute;
+	bottom:0;
+
+}
+
+#btnfiltre{
+
+	z-index:1;
+	position:absolute;
+	bottom:0;
+	
+}

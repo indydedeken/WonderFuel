@@ -6,12 +6,23 @@ var stations;
 
 function displayRouting(marker)
 {
-	route = L.Routing.control({
-		waypoints: [
-			L.latLng(myPosition.getLatLng()),
-			marker.getLatLng()
-		]
-	}).addTo(map);
+	if (!routeInitialized)
+	{
+		route = L.Routing.control({
+			waypoints: [
+				L.latLng(myPosition.getLatLng()),
+				marker.latLng
+			]
+		}).addTo(map);
+		routeInitialized = true;
+	}
+	else
+	{
+		var waypoints = new Array();
+		waypoints.push(myPosition.getLatLng());
+		waypoints.push(marker.latLng);
+		route.setWaypoints(waypoints).route();
+	}
 }
 
 function localizeStations()
@@ -30,12 +41,20 @@ function localizeStations()
 		{
 			fuel = datas[i].prix;
 			popupContent = datas[i].adresse + "<br>";
-			for(j=0;j<fuel.length;j++)
+			if(datas[i].prix.length != 0)
 			{
-				popupContent += (fuel[j].nom  + ":" + fuel[j].prix + "€<br>");
+				for(j=0;j<fuel.length;j++)
+				{
+					popupContent += (fuel[j].nom  + ": " + fuel[j].prix + " €/L <br>");
+				}
+			}
+			else
+			{
+				popupContent += "prix indisponible <br>"
 			}
 			results.push(new L.marker([datas[i].latitude, datas[i].longitude]).bindPopup(popupContent));
 			results[i].addTo(map);
+			results[i].on('mouseover', displayRouting(results[i]));
 		}
 	});
 }

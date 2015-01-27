@@ -153,10 +153,9 @@ function errorHandler(error)
 }
 
 
-function displayfilters(){
-
+function displayfilters()
+{
 	$('#filtre').toggle();
-
 }
 
 

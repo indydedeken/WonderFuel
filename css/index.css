@@ -48,11 +48,11 @@
 	display: inline-block;
 }
 
-.open {
+.opened {
     background: rgb(0,255,0);
 }
 
-.close {
+.closed {
     background: rgb(255,0,0);
 }
 

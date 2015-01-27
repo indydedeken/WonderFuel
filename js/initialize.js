@@ -79,19 +79,19 @@ function localizeStations()
 			
 			if (station.heureOuverture == station.heureFermeture || (station.heureOuverture.substring(0,1) < currentHours && station.heureFermeture.substring(0,1) > currentHours))
 			{
-				return "<span class='cercleLegende open'></span> ";
+				return "<span class='cercleLegende opened'></span> ";
 			}
 			else if (station.heureOuverture.substring(0,1) == currentHours && station.heureOuverture.substring(3,4) <= currentMinutes)
 			{
-				return "<span class='cercleLegende open'></span> ";
+				return "<span class='cercleLegende opened'></span> ";
 			}
 			else if (station.heureFermeture.substring(0,1) == currentHours && station.heureFermeture.substring(3,4) >= currentMinutes)
 			{
-				return "<span class='cercleLegende open'></span> ";
+				return "<span class='cercleLegende opened'></span> ";
 			}
 			else
 			{
-				return "<span class='cercleLegende close'></span> ";
+				return "<span class='cercleLegende closed'></span> ";
 			}
 		}
 

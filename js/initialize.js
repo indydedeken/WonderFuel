@@ -31,7 +31,6 @@ var fadeInMarker = L.Marker.extend({
                 clearInterval(id);
                 that.setOpacity(to);
                 that._runningFadeIn = false;
-                if (callback) { callback.call(that._map, that); }
             }
         }
     }

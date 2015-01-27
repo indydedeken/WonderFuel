@@ -37,16 +37,32 @@
 	display:none;
 	z-index:0;
 	width: auto;
-	border: 1px solid;
 	background-color: white;
-	position:absolute;
-	bottom:0;
 	height: 47%;
+    margin: 0 auto;
+    width: 450px;
+    padding: 25px;
 }
 
 #btnfiltre{
+    display: block;
+    margin: 6px auto;
+}
 
-	z-index:1;
-	position:absolute;
-	bottom:0;
+#conteneurFiltre{
+	bottom: 10px;   
+	position: absolute;
+    width: 100%;
+}
+
+.leaflet-control-attribution{
+	display: none;
+}
+
+@media screen and (max-width: 470px){
+
+	#filtre{
+		padding: 5px;
+  		width: 100%;
+	}
 }

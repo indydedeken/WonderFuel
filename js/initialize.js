@@ -3,6 +3,8 @@ var mapInitialized = false, routeInitialized = false;
 var results = new Array();
 var route;
 var stations;
+var kmCircle;
+var latLng;
 
 var fadeInMarker = L.Marker.extend({
     onAdd: function() {
@@ -134,7 +136,7 @@ function init()
 
 function showMyPosition(position)
 {
-	var latLng = L.latLng(position.coords.latitude, position.coords.longitude);
+	latLng = L.latLng(position.coords.latitude, position.coords.longitude);
 	if (!mapInitialized)
 	{
 		map = L.map('map',
@@ -227,4 +229,10 @@ $(document).ready(function(){
 	$('#btnfiltre').on('click',displayfilters);
 		
 	init();
+
+	$( "#choiceKmCircle" ).change(function() {
+		kmCircle = $( this ).val();
+		map.removeLayer(myPositionRadius);
+		myPositionRadius = L.circle(latLng, 1000*kmCircle, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
+	});
 });

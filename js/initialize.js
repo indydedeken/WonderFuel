@@ -71,27 +71,42 @@ function localizeStations()
 {
 	$("#spinner").show();
 	searchStations(myPosition.getLatLng(), function(datas){
+	
+		function displayState(station)
+		{
+			var currentHours = new Date().getHours();
+			var currentMinutes = new Date().getMinutes();
+			
+			if (station.heureOuverture == station.heureFermeture || (station.heureOuverture.substring(0,1) < currentHours && station.heureFermeture.substring(0,1) > currentHours))
+			{
+				return "<span class='cercleLegende open'></span> ";
+			}
+			else if (station.heureOuverture.substring(0,1) == currentHours && station.heureOuverture.substring(3,4) <= currentMinutes)
+			{
+				return "<span class='cercleLegende open'></span> ";
+			}
+			else if (station.heureFermeture.substring(0,1) == currentHours && station.heureFermeture.substring(3,4) >= currentMinutes)
+			{
+				return "<span class='cercleLegende open'></span> ";
+			}
+			else
+			{
+				return "<span class='cercleLegende close'></span> ";
+			}
+		}
 
 		// ICI TU FAIS TON TRAITEMENT
 		// RECUPERATION DES DONNEES : variable datas.
 		// datas est un tableau à parcourir. Chaque objet du tableau est constituée de la manière suivante :
 		// adresse/ville/latitude/longitude/tableau de Prix (nom/prix)
-		// Regardes Firebug pour voir le résultat du console.log suivant :
-		
-		var currentHours = new Date().getHours(); 
+		// Regardes Firebug pour voir le résultat du console.log suivant :	
 		var i, j;
 		var fuel;
 		var popupContent;
+		console.log(datas);
  		for (i=0;i<datas.length;i++)
 		{
-			if ((datas[i].heureOuverture == datas[i].heureFermeture) || (datas[i].heureOuverture <= currentHours && datas[i].heureFermeture >= currentHours))
-			{
-				popupContent = "<span class='cercleLegende open'></span> ";
-			}
-			else
-			{
-				popupContent = "<span class='cercleLegende close'></span> ";
-			}
+			popupContent = displayState(datas[i]);
 			fuel = datas[i].prix;
 			popupContent += (datas[i].ville + " - " + datas[i].adresse + " - " + datas[i].codepostal + "<br>");
 			if(datas[i].prix.length != 0)
@@ -166,7 +181,7 @@ function showMyPosition(position)
 
 		//Test sur la date : si supérieur à 19h alors on passe en mode nuit
 
-		if(currentdate.getHours() > 19 || currentdate.getHours() < 6){
+		if((currentdate.getHours() >= 19 || currentdate.getHours() <= 6) && currentdate.getMinutes() > 0){
 
 			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
 

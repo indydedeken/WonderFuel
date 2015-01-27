@@ -34,10 +34,9 @@
 /* ---------- FILTRE ---------------- */
 #filtre
 {
-
 	display:none;
-	z-index:1;
-	width: 100%;
+	z-index:0;
+	width: auto;
 	border: 1px solid;
 	background-color: white;
 	position:absolute;

@@ -4,6 +4,39 @@ var results = new Array();
 var route;
 var stations;
 
+var fadeInMarker = L.Marker.extend({
+    onAdd: function() {
+        this.setOpacity(0);
+        L.Marker.prototype.onAdd.apply(this, arguments);
+        if (!this._runningFadeIn)
+		{
+            this.fade(0, 1, null);
+        }
+    },
+    fade: function(from, to, callback)
+	{
+        var interval = 25,
+        msDone = 0,
+        ms = 1000,
+        id = setInterval(frame, interval),
+        currentOpacity = from,
+        that = this;
+
+        function frame() {
+            that._runningFadeIn = true;
+            that.setOpacity(currentOpacity);
+            msDone += interval;
+            currentOpacity = from + (to - from) * msDone/ms;
+            if (msDone >= ms) { // check finish condition
+                clearInterval(id);
+                that.setOpacity(to);
+                that._runningFadeIn = false;
+                if (callback) { callback.call(that._map, that); }
+            }
+        }
+    }
+});
+
 function displayRouting(marker)
 {
 	if (!routeInitialized)
@@ -50,19 +83,37 @@ function localizeStations()
 				popupContent = "<span class='cercleLegende close'></span> ";
 			}
 			fuel = datas[i].prix;
-			popupContent += datas[i].adresse + "<br>";
+			popupContent += (datas[i].ville + " - " + datas[i].adresse + " - " + datas[i].codepostal + "<br>");
 			if(datas[i].prix.length != 0)
 			{
+				popupContent += ("<ul> Prix : ");
 				for(j=0;j<fuel.length;j++)
 				{
-					popupContent += (fuel[j].nom  + ": " + fuel[j].prix + " €/L <br>");
+					popupContent += ("<li>" + fuel[j].nom  + ": " + fuel[j].prix + " €/L </li>");
 				}
+				popupContent += ("</ul><br>");
 			}
 			else
 			{
-				popupContent += "prix indisponible <br>"
+				popupContent += "prix indisponibles <br>"
 			}
-			results.push(new L.marker([datas[i].latitude, datas[i].longitude]).bindPopup(popupContent));
+			
+			if(datas[i].services.length != 0)
+			{
+				var services = datas[i].services;
+				popupContent += ("<ul> Services : ");
+				for(j=0;j<services.length;j++)
+				{
+					popupContent += ("<li>" + services[j]  + "</li>");
+				}
+				popupContent += ("</ul>");
+			}
+			else
+			{
+				popupContent += "services indisponibles <br>"
+			}
+			
+			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude]).bindPopup(popupContent));
 			results[i].addTo(map);
 			results[i].on('mouseover', displayRouting(results[i]));
 		}

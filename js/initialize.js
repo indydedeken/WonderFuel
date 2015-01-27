@@ -9,42 +9,35 @@ function displayRouting(marker)
 	route = L.Routing.control({
 		waypoints: [
 			L.latLng(myPosition.getLatLng()),
-			marker.latlng
+			marker.getLatLng()
 		]
 	}).addTo(map);
 }
 
 function localizeStations()
 {
-	//var stations = searchStations(myPosition.getLatLng());
-	
 	searchStations(myPosition.getLatLng(), function(datas){
 
 		// ICI TU FAIS TON TRAITEMENT
 		// RECUPERATION DES DONNEES : variable datas.
-		// datas est un tableau à parcourir. Chaque objet du tableau est constituée de la manière suivante :
+		// datas est un tableau Ã  parcourir. Chaque objet du tableau est constituÃ©e de la maniÃ¨re suivante :
 		// adresse/ville/latitude/longitude/tableau de Prix (nom/prix)
-		// Regardes Firebug pour voir le résultat du console.log suivant :
- 		console.log(datas); 
-	});
-
-	var i;
-	results.push(new L.marker([48.6, 2.4]));
-	results[0].addTo(map);
-	results[0].on('mouseover', displayRouting);
-	results[0].bindPopup("Nom de la station service : <NOM> <br/> Gazole : <PRIX> <br/> SP95 : <PRIX>");
-	
-	/*for (i=0;i<stations.length;i++)
-	{
-		results.push(new L.marker([stations[i].latitude, stations[i].longitude]).bindPopup("Nom de la station service : <NOM> <br/> Gazole : <PRIX> <br/> SP95 : <PRIX>"));
-		results[i].dragging.disable();
-		results[i].addTo(map);
-		results[i].on('click', function(e)
+		// Regardes Firebug pour voir le rÃ©sultat du console.log suivant :
+		var i, j;
+		var fuel;
+		var popupContent;
+ 		for (i=0;i<datas.length;i++)
 		{
-			alert(e.latlng); // e is an event object (MouseEvent in this case)
-		});
-	}*/
-	
+			fuel = datas[i].prix;
+			popupContent = datas[i].adresse + "<br>";
+			for(j=0;j<fuel.length;j++)
+			{
+				popupContent += (fuel[j].nom  + ":" + fuel[j].prix + "â‚¬<br>");
+			}
+			results.push(new L.marker([datas[i].latitude, datas[i].longitude]).bindPopup(popupContent));
+			results[i].addTo(map);
+		}
+	});
 }
 
 function init()
@@ -79,7 +72,7 @@ function showMyPosition(position)
 
 		var currentdate = new Date(); 
 
-		//Test sur la date : si supérieur à 19h alors on passe en mode nuit
+		//Test sur la date : si supÃ©rieur Ã  19h alors on passe en mode nuit
 
 		if(currentdate.getHours() > 19 || currentdate.getHours() < 6){
 
@@ -121,7 +114,7 @@ function errorHandler(error)
             break;
 
         case error.POSITION_UNAVAILABLE:
-            alert("Erreur : La position n'a pas pu être déterminée.");
+            alert("Erreur : La position n'a pas pu Ãªtre dÃ©terminÃ©e.");
             break;
 
         default:
@@ -137,8 +130,8 @@ $(document).ready(function(){
 		show : true
 	});
 	
-	// Affichage de la div prévenant de la recherche de position actuelle et on rend impossible le clique
-	// du bouton start tant que la position n'est pas trouvée
+	// Affichage de la div prÃ©venant de la recherche de position actuelle et on rend impossible le clique
+	// du bouton start tant que la position n'est pas trouvÃ©e
 	$(".waitPosition").show();
 	$('#start').prop('disabled', true);
 

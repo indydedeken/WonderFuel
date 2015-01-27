@@ -49,7 +49,7 @@ function getInfosByLatitudeLongitude(datas, positionActuelle){
 
 			function(){
 
-				 // get latitude/longitude de chaque entrée
+			 	 // get latitude/longitude de chaque entrée
 				 var lat = $(this).attr('latitude') / 100000;
 				 var long = $(this).attr('longitude') / 100000;
 
@@ -59,25 +59,41 @@ function getInfosByLatitudeLongitude(datas, positionActuelle){
 				 // Moins de 10km ? OK on ajoute la station dans la liste
 				 if( result <= 5){
 
+				 	// Récupération de la date et fin d'ouverture
+				 	var dateOuverture = $(this).find('ouverture').attr('debut');
+				 	var dateFermeture =  $(this).find('ouverture').attr('fin');
+
+				 	// Code postal
+				 	var cp = $(this).attr("cp");
+
+				 	// Récupération des services
+				 	listOfServices = Array();
+
+				 	$(this).find("service").each(
+				 		function(){
+				 			listOfServices.push($(this).text());
+				 		}
+				 	);
+
 				 	// Initialisation de la liste des prix 
 				 	listOfPetrols = Array();
 
 				 	// Parcours des prix
 				 	$(this).find("prix").each(
 				 		function(){
-
 				 			// Ajout de chaque Produit dans la liste
 				 			listOfPetrols.push( {'nom' : $(this).attr('nom'), 'prix' : $(this).attr('valeur')/1000} );
-
 				 		}
 				 	);
 
 				 	// Récupération de la ville et de l'adresse
-				 	var ville = $(this).find("adresse").text();
-				 	var adresse = $(this).find("ville").text();
+				 	var ville = $(this).find("ville").text();
+				 	var adresse = $(this).find("adresse").text();
 
 				 	listOfStations.push( 
-				 		{'latitude' : lat, 'longitude' : long, 'ville' : ville, 'adresse' : adresse, 'prix' : listOfPetrols} )
+				 		{'latitude' : lat, 'longitude' : long, 'ville' : ville, 'codepostal' : cp, 'adresse' : adresse, 
+				 		'prix' : listOfPetrols, 'services' : listOfServices, 'heureOuverture' : dateOuverture, 
+				 		'heureFermeture' : dateFermeture} )
 
 				 } 
 			}

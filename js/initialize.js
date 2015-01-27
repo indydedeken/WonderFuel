@@ -140,7 +140,7 @@ function localizeStations()
 			
 			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
-			results[i].on('mouseover', displayRouting(results[i]));
+			//results[i].on('mouseover', displayRouting(results[i]));
 		}
 		
 		$("#spinner").hide();
@@ -181,7 +181,7 @@ function showMyPosition(position)
 
 		//Test sur la date : si supérieur à 19h alors on passe en mode nuit
 
-		if((currentdate.getHours() >= 19 || currentdate.getHours() <= 6) && currentdate.getMinutes() > 0){
+		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6){
 
 			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
 

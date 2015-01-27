@@ -34,13 +34,23 @@ function localizeStations()
 		// datas est un tableau à parcourir. Chaque objet du tableau est constituée de la manière suivante :
 		// adresse/ville/latitude/longitude/tableau de Prix (nom/prix)
 		// Regardes Firebug pour voir le résultat du console.log suivant :
+		
+		var currentHours = new Date().getHours(); 
 		var i, j;
 		var fuel;
 		var popupContent;
  		for (i=0;i<datas.length;i++)
 		{
+			if ((datas[i].heureOuverture == datas[i].heureFermeture) || (datas[i].heureOuverture < currentHours && datas[i].heureFermeture > currentHours))
+			{
+				popupContent = "<span class='cercleLegende open'></span> ";
+			}
+			else
+			{
+				popupContent = "<span class='cercleLegende close'></span> ";
+			}
 			fuel = datas[i].prix;
-			popupContent = datas[i].adresse + "<br>";
+			popupContent += datas[i].adresse + "<br>";
 			if(datas[i].prix.length != 0)
 			{
 				for(j=0;j<fuel.length;j++)

@@ -13,6 +13,21 @@
 	display: inline-block;
 }
 
+.cercleLegende {
+    border-radius:50%;
+    width:10px;
+    height:10px;
+    border:1px solid black;
+	display: inline-block;
+}
+
+.open {
+    background: rgb(0,255,0);
+}
+
+.close {
+    background: rgb(255,0,0);
+}
 #filtre
 {
 

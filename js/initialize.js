@@ -45,8 +45,8 @@ var stationIcon = L.icon({
     iconUrl: 'img/station-icon.png',
     iconRetinaUrl: 'img/station-icon.png',
     iconSize: [30, 30],
-    iconAnchor: [9, 21],
-    popupAnchor: [0, -14]
+    iconAnchor: [0, 0],
+    popupAnchor: [15, 15]
 });
 
 function displayRouting(marker)

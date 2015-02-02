@@ -44,7 +44,7 @@ var fadeInMarker = L.Marker.extend({
 var stationIcon = L.icon({
     iconUrl: 'img/station-icon.png',
     iconRetinaUrl: 'img/station-icon.png',
-    iconSize: [29, 24],
+    iconSize: [30, 30],
     iconAnchor: [9, 21],
     popupAnchor: [0, -14]
 });
@@ -98,12 +98,7 @@ function localizeStations()
 				return "<span class='cercleLegende closed'></span> ";
 			}
 		}
-
-		// ICI TU FAIS TON TRAITEMENT
-		// RECUPERATION DES DONNEES : variable datas.
-		// datas est un tableau à parcourir. Chaque objet du tableau est constituée de la manière suivante :
-		// adresse/ville/latitude/longitude/tableau de Prix (nom/prix)
-		// Regardes Firebug pour voir le résultat du console.log suivant :	
+		
 		var i, j;
 		var fuel;
 		var popupContent;
@@ -113,17 +108,17 @@ function localizeStations()
 
  		for (i=0;i<datas.length;i++)
 		{
-			popupContent = displayState(datas[i]);
 			fuel = datas[i].prix;
-			popupContent += (datas[i].ville + " - " + datas[i].adresse + " - " + datas[i].codepostal + "<br>");
+			popupContent = ("<address>" + displayState(datas[i]) + datas[i].ville + " - " + datas[i].adresse + " - " + datas[i].codepostal + "</address>");
 			if(datas[i].prix.length != 0)
 			{
-				popupContent += ("<ul> Prix : ");
+				popupContent += ("<h6>Prix</h6>");
+				popupContent += ("<ul>");
 				for(j=0;j<fuel.length;j++)
 				{
 					popupContent += ("<li>" + fuel[j].nom  + ": " + fuel[j].prix + " €/L </li>");
 				}
-				popupContent += ("</ul><br>");
+				popupContent += ("</ul>");
 			}
 			else
 			{
@@ -133,7 +128,8 @@ function localizeStations()
 			if(datas[i].services.length != 0)
 			{
 				var services = datas[i].services;
-				popupContent += ("<ul> Services : ");
+				popupContent += ("<h6>Services</h6>");
+				popupContent += ("<ul>");
 				for(j=0;j<services.length;j++)
 				{
 					popupContent += ("<li>" + services[j]  + "</li>");
@@ -145,9 +141,9 @@ function localizeStations()
 				popupContent += "services indisponibles <br>"
 			}
 			
+			popupContent += "<button class='btn btn-primary goBtn'>Go !</button>";
 			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
-			results[i].on('mouseover', displayRouting);
 		}
 		
 		$("#spinner").hide();

@@ -24,7 +24,7 @@
       	<div id ="filtre" class="leaflet-bar"> 
       		<form>
       			<div class="form-group">
-      				<label for="disabledSelectdisabledSelect">Distance :</label>
+      				<label for="choiceKmCircle">Distance :</label>
       				 <select id="choiceKmCircle" class="form-control">
       					<option value="5">5 km</option>
       					<option value="10">10 km</option>
@@ -33,8 +33,8 @@
       				</select>
       			</div>
       			<div class="form-group">
-      				<label for="disabledSelect">Filtrage par prix :</label>
-      				<select id="disabledSelect" class="form-control">
+      				<label for="choiceGaz">Filtrage par prix :</label>
+      				<select id="choiceGaz" class="form-control">
       					<option value="Gazole">Gazole</option>
       					<option value="SP95">SP95</option>
       					<option value="SP98">SP98</option>
@@ -42,10 +42,22 @@
       				</select>
       			</div>
       			<div class="form-group">
-      				<label for="disabledSelect">Services :</label>
-      				<select id="disabledSelect" class="form-control">
+      				<label for="choiceServices">Services :</label>
+      				<select id="choiceServices" class="form-control">
       					<option>Tout</option>
-      					<option>Restauration</option>
+                                    <option value="Automate CB">Automate CB</option>
+                                    <option value="Boutique alimentaire">Boutique alimentaire</option>
+                                    <option value="Boutique non alimentaire">Boutique non alimentaire</option>
+                                    <option value="Vente de gaz domestique">Vente de gaz domestique</option>
+                                    <option value="GPL">GPL</option>
+                                    <option value="Carburant qualité supérieure">Carburant qualité supérieure</option>
+                                    <option value="Station de lavage">Station de lavage</option>
+                                    <option value="Lavage multi-programmes">Lavage multi-programmes</option>
+                                    <option value="Lavage haute-pression">Lavage haute-pression</option>
+                                    <option value="Station de gonflage">Station de gonflage</option>
+                                    <option value="Vente de fioul domestique">Vente de fioul domestique</option>
+                                    <option value="Toilettes publiques">Toilettes publiques</option>
+                                    <option value="Baie de service auto">Baie de service auto</option>
       				</select>
       			</div>
       		</form>

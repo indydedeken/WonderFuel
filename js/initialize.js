@@ -272,9 +272,35 @@ $(document).ready(function(){
 		for (var i=0; i < results.length; i++){
 			map.removeLayer(results[i]);
 		}
-
 		localizeStations();
+	});
 
+	$( "#choiceServices" ).change(function() {
+
+		var serviceChoisi = $( this ).val();
+
+		// Parcours de toutes les stations dans le rayon
+		var listeStationsServices = new Array();
+
+		for (var i=0; i < listeOfResultsInCircle.length; i++){
+
+			var station = listeOfResultsInCircle[i];
+
+			// On va parcourir tous les services de chaque station 
+			if(station.services.length != 0){
+				
+				for (var j=0; j < listeOfResultsInCircle[i].services.length; j++) {
+					
+					if(serviceChoisi == listeOfResultsInCircle[i].services[j]){
+						
+						
+						break;
+					}
+				};
+
+			}
+		}
 
 	});
+
 });

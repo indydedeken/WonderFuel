@@ -51,10 +51,7 @@ function displayRouting(marker)
 	if (!routeInitialized)
 	{
 		route = L.Routing.control({
-			waypoints: [
-				L.latLng(myPosition.getLatLng()),
-				marker.latLng
-			]
+			plan: new L.Routing.plan([myPosition.getLatLng(),marker.latlng],{addWaypoints: false, draggableWaypoints: false})
 		}).addTo(map);
 		routeInitialized = true;
 	}
@@ -62,8 +59,9 @@ function displayRouting(marker)
 	{
 		var waypoints = new Array();
 		waypoints.push(myPosition.getLatLng());
-		waypoints.push(marker.latLng);
-		route.setWaypoints(waypoints).route();
+		waypoints.push(marker.latlng);
+		route.setWaypoints(waypoints);
+		route.route();
 	}
 }
 
@@ -140,7 +138,7 @@ function localizeStations()
 			
 			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
-			//results[i].on('mouseover', displayRouting(results[i]));
+			results[i].on('mouseover', displayRouting);
 		}
 		
 		$("#spinner").hide();

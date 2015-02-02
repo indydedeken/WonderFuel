@@ -5,6 +5,9 @@ var route;
 var stations;
 var kmCircle;
 var latLng;
+var zoom = 13;
+var distance = 5;
+var listeOfResultsInCircle;
 
 var fadeInMarker = L.Marker.extend({
     onAdd: function() {
@@ -68,8 +71,11 @@ function displayRouting(marker)
 function localizeStations()
 {
 	$("#spinner").show();
-	searchStations(myPosition.getLatLng(), function(datas){
-	
+	searchStations(myPosition.getLatLng(), distance, function(datas){
+		
+		// Recupération des stations dans le cercle
+		listeOfResultsInCircle = data;
+
 		function displayState(station)
 		{
 			var currentHours = new Date().getHours();
@@ -101,7 +107,10 @@ function localizeStations()
 		var i, j;
 		var fuel;
 		var popupContent;
-		console.log(datas);
+
+		// On vide la liste
+		results.length = 0; 
+
  		for (i=0;i<datas.length;i++)
 		{
 			popupContent = displayState(datas[i]);
@@ -165,7 +174,7 @@ function showMyPosition(position)
 		map = L.map('map',
 		{
 			center: latLng,
-			zoom: 13, 
+			zoom: zoom, 
 			touchZoom : false,
 			scrollWheelZoom : false,
 			doubleClickZoom : false,
@@ -254,8 +263,22 @@ $(document).ready(function(){
 	init();
 
 	$( "#choiceKmCircle" ).change(function() {
-		kmCircle = $( this ).val();
+		distance = $( this ).val();
 		map.removeLayer(myPositionRadius);
-		myPositionRadius = L.circle(latLng, 1000*kmCircle, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
+		myPositionRadius = L.circle(latLng, 1000*distance, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
+		
+		// On set le zoom en fonction du rayon du cercle de recherche
+		zoom = (-1/5)* distance  + 14;
+
+		map.setZoom(zoom);
+
+		// On reparcours toutes les stations et on met à jour les markers
+		for (var i=0; i < results.length; i++){
+			map.removeLayer(results[i]);
+		}
+
+		localizeStations();
+
+
 	});
 });

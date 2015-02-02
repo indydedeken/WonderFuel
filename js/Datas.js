@@ -1,5 +1,5 @@
 // Fonction qui retourne un tableau de stations les plus proches de la position actuelle (rayon de 5 km)
-function searchStations(positionActuelle, fonctionDeRetour){
+function searchStations(positionActuelle, distance, fonctionDeRetour){
 
 	if(positionActuelle != null){
 		
@@ -30,7 +30,7 @@ function searchStations(positionActuelle, fonctionDeRetour){
 			var xmlFile = xml.asBinary();
 
 				// On récupère la liste des stations
-				var infosStation = getInfosByLatitudeLongitude(xmlFile, positionActuelle);
+				var infosStation = getInfosByLatitudeLongitude(xmlFile, positionActuelle, distance);
 				
 				//console.log(infosStation);
 				fonctionDeRetour(infosStation);
@@ -40,7 +40,7 @@ function searchStations(positionActuelle, fonctionDeRetour){
 }
 
 // obtention d'une liste de prix/adresse/ville des stations les plus proches (dans un rayon de 10 km)
-function getInfosByLatitudeLongitude(datas, positionActuelle){
+function getInfosByLatitudeLongitude(datas, positionActuelle, distance){
 
 	 var listOfStations = Array();
 	 var result = null;
@@ -57,7 +57,7 @@ function getInfosByLatitudeLongitude(datas, positionActuelle){
 				 result = positionActuelle.distanceTo([lat, long])/1000;
 
 				 // Moins de 10km ? OK on ajoute la station dans la liste
-				 if( result <= 5){
+				 if( result <= distance){
 
 				 	// Récupération de la date et fin d'ouverture
 				 	var dateOuverture = $(this).find('ouverture').attr('debut');

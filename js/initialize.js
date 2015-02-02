@@ -141,7 +141,7 @@ function localizeStations()
 				popupContent += "services indisponibles <br>"
 			}
 			
-			popupContent += "<button class='btn btn-primary goBtn'>Go !</button>";
+			popupContent += "<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go!</button>";
 			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
 		}

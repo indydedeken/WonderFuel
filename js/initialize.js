@@ -74,7 +74,7 @@ function localizeStations()
 	searchStations(myPosition.getLatLng(), distance, function(datas){
 		
 		// Recupération des stations dans le cercle
-		listeOfResultsInCircle = data;
+		listeOfResultsInCircle = datas;
 
 		function displayState(station)
 		{

@@ -8,6 +8,7 @@ var latLng;
 var zoom = 13;
 var distance = 5;
 var listeOfResultsInCircle;
+var listeOfResultFiltres = new Array();
 
 var fadeInMarker = L.Marker.extend({
     onAdd: function() {
@@ -76,7 +77,16 @@ function localizeStations()
 		// Recupération des stations dans le cercle
 		listeOfResultsInCircle = datas;
 
-		function displayState(station)
+		// Méthode qui créer les markers
+		createMarkers(listeOfResultsInCircle);
+
+		$("#spinner").hide();
+	});
+}
+
+function createMarkers(listeStations){
+
+	function displayState(station)
 		{
 			var currentHours = new Date().getHours();
 			var currentMinutes = new Date().getMinutes();
@@ -106,11 +116,11 @@ function localizeStations()
 		// On vide la liste
 		results.length = 0; 
 
- 		for (i=0;i<datas.length;i++)
+ 		for (i=0;i<listeStations.length;i++)
 		{
-			fuel = datas[i].prix;
-			popupContent = ("<address>" + displayState(datas[i]) + datas[i].ville + " - " + datas[i].adresse + " - " + datas[i].codepostal + "</address>");
-			if(datas[i].prix.length != 0)
+			fuel = listeStations[i].prix;
+			popupContent = ("<address>" + displayState(listeStations[i]) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal + "</address>");
+			if(listeStations[i].prix.length != 0)
 			{
 				popupContent += ("<h6>Prix</h6>");
 				popupContent += ("<ul>");
@@ -125,9 +135,9 @@ function localizeStations()
 				popupContent += "prix indisponibles <br>"
 			}
 			
-			if(datas[i].services.length != 0)
+			if(listeStations[i].services.length != 0)
 			{
-				var services = datas[i].services;
+				var services = listeStations[i].services;
 				popupContent += ("<h6>Services</h6>");
 				popupContent += ("<ul>");
 				for(j=0;j<services.length;j++)
@@ -142,12 +152,9 @@ function localizeStations()
 			}
 			
 			popupContent += "<button class='btn btn-primary goBtn'>Go !</button>";
-			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
+			results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
 		}
-		
-		$("#spinner").hide();
-	});
 }
 
 function init()
@@ -239,6 +246,13 @@ function displayfilters()
 	$('#filtre').toggle();
 }
 
+// Fonction qui supprime tous les markers de la map
+function clearMarkers(){
+	// On reparcours toutes les stations et on met à jour les markers
+	for (var i=0; i < results.length; i++){
+		map.removeLayer(results[i]);
+	}
+}
 
 $(document).ready(function(){
 
@@ -258,7 +272,12 @@ $(document).ready(function(){
 		
 	init();
 
+	// Choix du filtre du rayon des stations
 	$( "#choiceKmCircle" ).change(function() {
+
+		$('#choiceGaz option[value="aucun"]').attr("selected",true);
+		$('#choiceServices option[value="tout"]').attr("selected",true);
+
 		distance = $( this ).val();
 		map.removeLayer(myPositionRadius);
 		myPositionRadius = L.circle(latLng, 1000*distance, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
@@ -272,33 +291,91 @@ $(document).ready(function(){
 		for (var i=0; i < results.length; i++){
 			map.removeLayer(results[i]);
 		}
+
+		// On rappelle cette méthode pour reparcourir toutes les stations du fichier xml
 		localizeStations();
 	});
 
+	// Choix du filtre des services
 	$( "#choiceServices" ).change(function() {
+
+		// On vide le tableau triés
+		listeOfResultFiltres.length = 0;
 
 		var serviceChoisi = $( this ).val();
 
-		// Parcours de toutes les stations dans le rayon
-		var listeStationsServices = new Array();
+		if(serviceChoisi == "Tout"){
+			createMarkers(listeOfResultsInCircle);
+		}else{
 
-		for (var i=0; i < listeOfResultsInCircle.length; i++){
+			for (var i=0; i < listeOfResultsInCircle.length; i++){
 
-			var station = listeOfResultsInCircle[i];
+				var station = listeOfResultsInCircle[i];
 
-			// On va parcourir tous les services de chaque station 
-			if(station.services.length != 0){
-				
-				for (var j=0; j < listeOfResultsInCircle[i].services.length; j++) {
+				// On va parcourir tous les services de chaque station 
+				if(station.services.length != 0){
 					
-					if(serviceChoisi == listeOfResultsInCircle[i].services[j]){
+					for (var j=0; j < listeOfResultsInCircle[i].services.length; j++) {
 						
-						
-						break;
-					}
-				};
+						if(serviceChoisi == listeOfResultsInCircle[i].services[j]){
+							
+							// Le service choisi fait parti de la station parcourue, OK on l'ajoute dans le tableau
+							listeOfResultFiltres.push(listeOfResultsInCircle[i]);
+							break;
+						}
+					};
 
+				}
 			}
+
+			// On commencence par vider les markers de la map
+			clearMarkers();
+
+			// On créer les markers sur la map
+			createMarkers(listeOfResultFiltres);
+
+		}
+
+	});
+
+	// Choix du filtre des gaz
+	$( "#choiceGaz" ).change(function() {
+
+		// On vide le tableau triés
+		listeOfResultFiltres.length = 0;
+
+		var gazChoisi = $( this ).val();
+
+		if(gazChoisi == "Tout"){
+			createMarkers(listeOfResultsInCircle);
+		}else{
+
+			for (var i=0; i < listeOfResultsInCircle.length; i++){
+
+				var station = listeOfResultsInCircle[i];
+
+				// On va parcourir tous les prix de chaque station 
+				if(station.prix.length != 0){
+					
+					for (var j=0; j < listeOfResultsInCircle[i].prix.length; j++) {
+						
+						if(gazChoisi == listeOfResultsInCircle[i].prix[j].nom){
+							
+							// Le service choisi fait parti de la station parcourue, OK on l'ajoute dans le tableau
+							listeOfResultFiltres.push(listeOfResultsInCircle[i]);
+							break;
+						}
+					};
+
+				}
+			}
+
+			// On commencence par vider les markers de la map
+			clearMarkers();
+
+			// On créer les markers sur la map
+			createMarkers(listeOfResultFiltres);
+
 		}
 
 	});

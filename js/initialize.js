@@ -46,8 +46,8 @@ var stationIcon = L.icon({
     iconUrl: 'img/station-icon.png',
     iconRetinaUrl: 'img/station-icon.png',
     iconSize: [30, 30],
-    iconAnchor: [9, 21],
-    popupAnchor: [0, -14]
+    iconAnchor: [0, 0],
+    popupAnchor: [15, 15]
 });
 
 function displayRouting(marker)
@@ -151,8 +151,13 @@ function createMarkers(listeStations){
 				popupContent += "services indisponibles <br>"
 			}
 			
+<<<<<<< HEAD
 			popupContent += "<button class='btn btn-primary goBtn'>Go !</button>";
 			results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
+=======
+			popupContent += "<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go!</button>";
+			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
+>>>>>>> origin/master
 			results[i].addTo(map);
 		}
 }

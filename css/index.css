@@ -61,6 +61,14 @@
 	margin: 2%;
 }
 
+.listPrice {
+	margin-bottom: 5px;
+}
+
+.listServices {
+	margin-top: 5px;
+}
+
 /* ---------- FILTRE ---------------- */
 #filtre
 {

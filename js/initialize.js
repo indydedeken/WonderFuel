@@ -119,16 +119,16 @@ function createMarkers(listeStations){
  		for (i=0;i<listeStations.length;i++)
 		{
 			fuel = listeStations[i].prix;
-			popupContent = ("<address>" + displayState(listeStations[i]) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal + "</address>");
+			popupContent = ("<address><b>" + displayState(listeStations[i]) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal + "</b></address>");
 			if(listeStations[i].prix.length != 0)
 			{
-				popupContent += ("<h6>Prix</h6>");
+				popupContent += ("<div class='list-group'><a href='#' class='list-group-item active listPrice'><span class='glyphicon glyphicon-euro'></span> Prix <span class='badge'>" + listeStations[i].prix.length + "</span>");
 				popupContent += ("<ul>");
 				for(j=0;j<fuel.length;j++)
 				{
 					popupContent += ("<li>" + fuel[j].nom  + ": " + fuel[j].prix + " €/L </li>");
 				}
-				popupContent += ("</ul>");
+				popupContent += ("</ul></a>");
 			}
 			else
 			{
@@ -138,17 +138,17 @@ function createMarkers(listeStations){
 			if(listeStations[i].services.length != 0)
 			{
 				var services = listeStations[i].services;
-				popupContent += ("<h6>Services</h6>");
+				popupContent += ("<a href='#' class='list-group-item listServices'><span class='glyphicon glyphicon-wrench'></span> Services <span class='badge'>" + listeStations[i].services.length + "</span>");
 				popupContent += ("<ul>");
 				for(j=0;j<services.length;j++)
 				{
 					popupContent += ("<li>" + services[j]  + "</li>");
 				}
-				popupContent += ("</ul>");
+				popupContent += ("</ul></a></div>");
 			}
 			else
 			{
-				popupContent += "services indisponibles <br>"
+				popupContent += "</div>services indisponibles <br>"
 			}
 			
 			popupContent += "<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go !</button>";

@@ -151,13 +151,8 @@ function createMarkers(listeStations){
 				popupContent += "services indisponibles <br>"
 			}
 			
-<<<<<<< HEAD
-			popupContent += "<button class='btn btn-primary goBtn'>Go !</button>";
+			popupContent += "<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go !</button>";
 			results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
-=======
-			popupContent += "<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go!</button>";
-			results.push(new fadeInMarker([datas[i].latitude, datas[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
->>>>>>> origin/master
 			results[i].addTo(map);
 		}
 }

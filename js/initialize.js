@@ -50,12 +50,13 @@ var stationIcon = L.icon({
     popupAnchor: [15, 15]
 });
 
-function displayRouting(marker)
+function displayRouting(ind)
 {
+	map.closePopup();
 	if (!routeInitialized)
 	{
 		route = L.Routing.control({
-			plan: new L.Routing.plan([myPosition.getLatLng(),marker.latlng],{addWaypoints: false, draggableWaypoints: false})
+			plan: new L.Routing.plan([myPosition.getLatLng(),results[ind].getLatLng()],{addWaypoints: false, draggableWaypoints: false})
 		}).addTo(map);
 		routeInitialized = true;
 	}
@@ -63,7 +64,7 @@ function displayRouting(marker)
 	{
 		var waypoints = new Array();
 		waypoints.push(myPosition.getLatLng());
-		waypoints.push(marker.latlng);
+		waypoints.push(results[ind].getLatLng());
 		route.setWaypoints(waypoints);
 		route.route();
 	}
@@ -151,7 +152,7 @@ function createMarkers(listeStations){
 				popupContent += "</div>services indisponibles <br>"
 			}
 			
-			popupContent += "<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go !</button>";
+			popupContent += "<button class='btn btn-primary goBtn' onclick='(function(value){ displayRouting(value);}("+i+"));'><span class='glyphicon glyphicon-road'></span> Go !</button>";
 			results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
 		}

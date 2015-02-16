@@ -335,9 +335,6 @@ $(document).ready(function(){
 				}
 			}
 
-			// On commencence par vider les markers de la map
-		//	clearMarkers();
-
 			// On créer les markers sur la map
 			createMarkers(listeOfResultFiltres);
 
@@ -382,7 +379,7 @@ $(document).ready(function(){
 			}
 
 			// on trie la liste par ordre décroissant des prix du gaz sélectionné
-			listeOfResultsInCircle.sort(
+			listeOfResultFiltres.sort(
 				function(a,b){ 
 
 					var prixA, prixB;
@@ -406,9 +403,6 @@ $(document).ready(function(){
 					return parseFloat(prixA) - parseFloat(prixB); 
 				} 
 			);
-
-			// On commencence par vider les markers de la map
-			//clearMarkers();
 
 			// On créer les markers sur la map
 			createMarkers(listeOfResultFiltres);

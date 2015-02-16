@@ -9,6 +9,7 @@ var zoom = 13;
 var distance = 5;
 var listeOfResultsInCircle;
 var listeOfResultFiltres = new Array();
+var gazChoisi;
 
 var fadeInMarker = L.Marker.extend({
     onAdd: function() {
@@ -300,6 +301,11 @@ $(document).ready(function(){
 	// Choix du filtre des services
 	$( "#choiceServices" ).change(function() {
 
+		$('#choiceGaz').prop('selectedIndex', 0);
+
+		// on clean la map
+		clearMarkers();
+
 		// On vide le tableau triés
 		listeOfResultFiltres.length = 0;
 
@@ -330,7 +336,7 @@ $(document).ready(function(){
 			}
 
 			// On commencence par vider les markers de la map
-			clearMarkers();
+		//	clearMarkers();
 
 			// On créer les markers sur la map
 			createMarkers(listeOfResultFiltres);
@@ -342,12 +348,17 @@ $(document).ready(function(){
 	// Choix du filtre des gaz
 	$( "#choiceGaz" ).change(function() {
 
+		$('#choiceServices').prop('selectedIndex', 0);
+
+		// on clean la map
+		clearMarkers();
+
 		// On vide le tableau triés
 		listeOfResultFiltres.length = 0;
 
-		var gazChoisi = $( this ).val();
+		gazChoisi = $( this ).val();
 
-		if(gazChoisi == "Tout"){
+		if(gazChoisi == "aucun"){
 			createMarkers(listeOfResultsInCircle);
 		}else{
 
@@ -361,18 +372,43 @@ $(document).ready(function(){
 					for (var j=0; j < listeOfResultsInCircle[i].prix.length; j++) {
 						
 						if(gazChoisi == listeOfResultsInCircle[i].prix[j].nom){
-							
+
 							// Le service choisi fait parti de la station parcourue, OK on l'ajoute dans le tableau
 							listeOfResultFiltres.push(listeOfResultsInCircle[i]);
 							break;
 						}
 					};
-
 				}
 			}
 
+			// on trie la liste par ordre décroissant des prix du gaz sélectionné
+			listeOfResultsInCircle.sort(
+				function(a,b){ 
+
+					var prixA, prixB;
+
+					for (var i = 0; i < a.prix.length; i++) {
+
+						if(gazChoisi == a.prix[i].nom){
+							prixA = a.prix[i].prix;
+						}
+
+					};
+
+					for (var j = 0; j < b.prix.length; j++) {
+						
+						if(gazChoisi == b.prix[j].nom){
+							prixB = b.prix[j].prix;
+						}
+
+					};
+
+					return parseFloat(prixA) - parseFloat(prixB); 
+				} 
+			);
+
 			// On commencence par vider les markers de la map
-			clearMarkers();
+			//clearMarkers();
 
 			// On créer les markers sur la map
 			createMarkers(listeOfResultFiltres);

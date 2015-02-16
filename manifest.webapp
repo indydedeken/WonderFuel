@@ -4,9 +4,9 @@
   "description": "Find All gas station localized around you",
   "launch_path": "/index.html",
   "icons": {
-    "16": "/app-icons/app-icon.png",
-    "48": "/app-icons/app-icon.png",
-    "128": "/app-icons/app-icon.png"
+    "60": "/app-icons/app-icon.png",
+    "128": "/app-icons/app-iconx128.png",
+    "256": "/app-icons/app-iconx256.png"
   },
   "developer": {
     "name": "BestTeam",

@@ -270,7 +270,7 @@ $(document).ready(function(){
 
 	$('#btnfiltre').on('click',displayfilters);
 
-	
+	$('#btnCentrage').on('click',centrage);
 		
 	init();
 
@@ -381,5 +381,13 @@ $(document).ready(function(){
 		}
 
 	});
+
+
+	function centrage()
+	{
+	
+		map.setView(myPosition.getLatLng());
+
+	}
 
 });

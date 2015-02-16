@@ -269,6 +269,8 @@ $(document).ready(function(){
 	$('#start').on('click', localizeStations);
 
 	$('#btnfiltre').on('click',displayfilters);
+
+	
 		
 	init();
 

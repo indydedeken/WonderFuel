@@ -84,6 +84,7 @@
 
 #btnfiltre{
     display: block;
+    float:left;
 }
 
 #conteneurFiltre{
@@ -103,4 +104,18 @@
 		padding: 5px;
   		width: 100%;
 	}
+}
+
+
+#buttonsContainer{
+
+	width: 100%;
+
+}
+
+#btnCentrage{
+
+float:left;
+margin-left:10px;
+
 }

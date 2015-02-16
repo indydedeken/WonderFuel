@@ -87,28 +87,28 @@ function localizeStations()
 
 function createMarkers(listeStations){
 
-	function displayState(station)
-		{
+	function displayState(station, ind)
+	{
 			var currentHours = new Date().getHours();
 			var currentMinutes = new Date().getMinutes();
 			
 			if (station.heureOuverture == station.heureFermeture || (station.heureOuverture.substring(0,1) < currentHours && station.heureFermeture.substring(0,1) > currentHours))
 			{
-				return "<span class='cercleLegende opened'></span> ";
+				return "<span class='cercleLegende badge opened'>"+ind+"</span> ";
 			}
 			else if (station.heureOuverture.substring(0,1) == currentHours && station.heureOuverture.substring(3,4) <= currentMinutes)
 			{
-				return "<span class='cercleLegende opened'></span> ";
+				return "<span class='cercleLegende badge opened'>"+ind+"</span> ";
 			}
 			else if (station.heureFermeture.substring(0,1) == currentHours && station.heureFermeture.substring(3,4) >= currentMinutes)
 			{
-				return "<span class='cercleLegende opened'></span> ";
+				return "<span class='cercleLegende badge opened'>"+ind+"</span> ";
 			}
 			else
 			{
-				return "<span class='cercleLegende closed'></span> ";
+				return "<span class='cercleLegende badge closed'>"+ind+"</span> ";
 			}
-		}
+	}
 		
 		var i, j;
 		var fuel;
@@ -120,7 +120,7 @@ function createMarkers(listeStations){
  		for (i=0;i<listeStations.length;i++)
 		{
 			fuel = listeStations[i].prix;
-			popupContent = ("<address><b>" + displayState(listeStations[i]) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal + "</b></address>");
+			popupContent = ("<address><b>" + displayState(listeStations[i], i+1) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal + "</b></address>");
 			if(listeStations[i].prix.length != 0)
 			{
 				popupContent += ("<div class='list-group'><a href='#' class='list-group-item active listPrice'><span class='glyphicon glyphicon-euro'></span> Prix <span class='badge'>" + listeStations[i].prix.length + "</span>");

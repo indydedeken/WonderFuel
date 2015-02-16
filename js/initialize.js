@@ -179,7 +179,6 @@ function showMyPosition(position)
 		{
 			center: latLng,
 			zoom: zoom, 
-			touchZoom : false,
 			scrollWheelZoom : false,
 			doubleClickZoom : false,
 			boxZoom : false,

@@ -73,24 +73,24 @@
 #filtre
 {
 	display:none;
-	z-index:0;
+	z-index:7;
 	width: auto;
 	background-color: white;
 	height: 47%;
-    margin: 0 auto;
+    margin-bottom: 10px;
     width: 450px;
     padding: 25px;
 }
 
 #btnfiltre{
     display: block;
-    margin: 6px auto;
 }
 
 #conteneurFiltre{
 	bottom: 10px;   
 	position: absolute;
-    width: 100%;
+	margin: auto;
+	left: 10px;
 }
 
 .leaflet-control-attribution{

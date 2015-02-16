@@ -179,7 +179,6 @@ function showMyPosition(position)
 		{
 			center: latLng,
 			zoom: zoom, 
-			scrollWheelZoom : false,
 			doubleClickZoom : false,
 			boxZoom : false,
 			keyboard: false,
@@ -189,7 +188,7 @@ function showMyPosition(position)
 
 		var currentdate = new Date(); 
 
-		//Test sur la date : si supérieur à 19h alors on passe en mode nuit
+		//Test sur la date : si supérieur ou égal à 19h alors on passe en mode nuit
 
 		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6){
 

@@ -103,31 +103,35 @@ function localizeStations()
 	});
 }
 
-function createMarkers(listeStations){
-
+function createMarkers(listeStations)
+{
 	function displayState(station, ind)
 	{
-			var currentHours = new Date().getHours();
-			var currentMinutes = new Date().getMinutes();
-			
-			if (station.heureOuverture == station.heureFermeture || (station.heureOuverture.substring(0,1) < currentHours && station.heureFermeture.substring(0,1) > currentHours))
+		var currentHours = new Date().getHours() + ":" + new Date().getMinutes();
+		
+		if (station.heureOuverture && station.heureFermeture)
+		{
+			// 24H/24
+			if (station.heureOuverture == station.heureFermeture)
 			{
 				return "<span class='cercleLegende badge opened'>"+ind+"</span> ";
 			}
-			else if (station.heureOuverture.substring(0,1) == currentHours && station.heureOuverture.substring(3,4) <= currentMinutes)
+			else if (station.heureOuverture <= currentHours && station.heureFermeture >= currentHours) // station ouverte
 			{
 				return "<span class='cercleLegende badge opened'>"+ind+"</span> ";
 			}
-			else if (station.heureFermeture.substring(0,1) == currentHours && station.heureFermeture.substring(3,4) >= currentMinutes)
-			{
-				return "<span class='cercleLegende badge opened'>"+ind+"</span> ";
-			}
-			else
+			else // station fermée
 			{
 				return "<span class='cercleLegende badge closed'>"+ind+"</span> ";
 			}
+		}
+		else
+		{
+			return "<span class='cercleLegende badge'>"+ind+"</span> ";
+		}
 	}
 		
+		console.log(listeStations);
 		var i, j;
 		var fuel;
 		var popupContent;
@@ -442,7 +446,6 @@ $(document).ready(function(){
 
 	function centrage()
 	{
-		zoom = 13;
 		map.setView(myPosition.getLatLng(), zoom);
 	}
 });

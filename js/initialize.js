@@ -44,11 +44,19 @@ var fadeInMarker = L.Marker.extend({
 });
 
 var stationIcon = L.icon({
-    iconUrl: 'img/station-icon.png',
-    iconRetinaUrl: 'img/station-icon.png',
+    iconUrl: 'img/other/station-icon.png',
+    iconRetinaUrl: 'img/other/station-icon-2x.png',
     iconSize: [30, 30],
-    iconAnchor: [0, 0],
-    popupAnchor: [15, 15]
+    iconAnchor: [15, 15],
+    popupAnchor: [0, 0]
+});
+
+var firstIcon = L.icon({
+    iconUrl: 'img/first/first-icon.png',
+    iconRetinaUrl: 'img/first/first-icon.png',
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+    popupAnchor: [0, 0]
 });
 
 function displayRouting(ind)
@@ -114,12 +122,14 @@ function createMarkers(listeStations){
 		var i, j;
 		var fuel;
 		var popupContent;
+		var markerIcon;
 
 		// On vide la liste
 		results.length = 0; 
 
  		for (i=0;i<listeStations.length;i++)
 		{
+			markerIcon = stationIcon;
 			fuel = listeStations[i].prix;
 			popupContent = ("<address><b>" + displayState(listeStations[i], i+1) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal + "</b></address>");
 			if(listeStations[i].prix.length != 0)
@@ -152,9 +162,14 @@ function createMarkers(listeStations){
 			{
 				popupContent += "</div>services indisponibles <br>"
 			}
+		
+			if (i <= 2)
+			{
+				markerIcon = firstIcon;
+			}
 			
 			popupContent += "<button class='btn btn-primary goBtn' onclick='(function(value){ displayRouting(value);}("+i+"));'><span class='glyphicon glyphicon-road'></span> Go !</button>";
-			results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: stationIcon}).bindPopup(popupContent));
+			results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: markerIcon}).bindPopup(popupContent));
 			results[i].addTo(map);
 		}
 }

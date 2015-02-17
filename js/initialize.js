@@ -442,9 +442,7 @@ $(document).ready(function(){
 
 	function centrage()
 	{
-	
-		map.setView(myPosition.getLatLng());
-
+		zoom = 13;
+		map.setView(myPosition.getLatLng(), zoom);
 	}
-
 });

@@ -79,6 +79,15 @@ function displayRouting(ind)
 	}
 }
 
+function mapOnClick()
+{
+	if (mapInitialized)
+	{
+		$('#filtre').hide();
+		map.closePopup();
+	}
+}
+
 function localizeStations()
 {
 	$("#spinner").show();
@@ -222,6 +231,10 @@ function showMyPosition(position)
 		mapInitialized = true;
 		myPosition = L.circleMarker(latLng,{color: 'blue',fillOpacity: 1}).addTo(map);
 		myPositionRadius = L.circle(latLng, 1000*5, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
+		map.on('click', function(e)
+		{
+			mapOnClick();
+		});
 	}
 	else
 	{

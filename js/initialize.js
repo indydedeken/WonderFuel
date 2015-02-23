@@ -207,7 +207,8 @@ function init()
 	}
 	else 
 	{
-		alert("Your Browser does not support GeoLocation.");
+		$('#messageErreur').html("Erreur : Votre navigateur ne supporte pas la géolocation") ;
+        $('#messageErreur').css("display", "block");
 	}
 }
 
@@ -291,16 +292,19 @@ function errorHandler(error)
 				break;
 
 			case error.PERMISSION_DENIED:
-				alert("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
-				break;
+            $('#messageErreur').html("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.") ;
+            $('#messageErreur').css("display", "block");
+            break;
 
-			case error.POSITION_UNAVAILABLE:
-				alert("Erreur : La position n'a pas pu être déterminée.");
-				break;
+            case error.POSITION_UNAVAILABLE:
+            $('#messageErreur').html("Erreur : La position n'a pas pu être déterminée.") ;
+            $('#messageErreur').css("display", "block");
+            break;
 
-			default:
-				alert("Erreur "+error.code+" : "+error.message);
-				break;
+            default:
+            $('#messageErreur').html("Erreur "+error.code+" : "+error.message) ;
+            $('#messageErreur').css("display", "block");
+            break;
 		}
 	}
 }

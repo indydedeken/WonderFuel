@@ -253,13 +253,7 @@ function showMyPosition(position)
 			mapOnClick();
 		});
 		
-		window.setInterval(
-			function ()
-			{
-				init();
-			}
-			, 15000 //check every 15 seconds
-		);
+		window.setInterval(function (){init();}, 15000);
 	}
 	else
 	{

@@ -137,8 +137,6 @@ function createMarkers(listeStations)
 			return "<span class='cercleLegende badge'>"+ind+"</span> ";
 		}
 	}
-		
-		console.log(listeStations);
 		var i, j;
 		var fuel;
 		var popupContent;
@@ -264,15 +262,17 @@ function showMyPosition(position)
 	}
 	else
 	{
-		myPosition.setLatLng(latLng).update();
-		myPositionRadius.setLatLng(latLng).update();
-		if (routeInitialized)
+		if (myPosition && myPositionRadius)
 		{
-			console.log("recalcul route");
-			var waypoints = route.getWaypoints();
-			waypoints[0] = latLng;
-			route.setWaypoints(waypoints);
-			route.route();
+			myPosition.setLatLng(latLng).update();
+			myPositionRadius.setLatLng(latLng).update();
+			if (routeInitialized)
+			{
+				var waypoints = route.getWaypoints();
+				waypoints[0] = latLng;
+				route.setWaypoints(waypoints);
+				route.route();
+			}
 		}
 	}
 
@@ -488,7 +488,7 @@ $(document).ready(function(){
 
 	function centrage()
 	{
-		map.setView(myPosition.getLatLng(), zoom);
+		map.setView(myPosition.getLatLng());
 		map.closePopup();
 	}
 });

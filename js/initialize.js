@@ -158,7 +158,14 @@ function createMarkers(listeStations)
 				popupContent += ("<ul>");
 				for(j=0;j<fuel.length;j++)
 				{
-					popupContent += ("<li>" + fuel[j].nom  + ": " + fuel[j].prix + " €/L </li>");
+					if (fuel[j].nom != undefined)
+					{
+						popupContent += ("<li>" + fuel[j].nom  + ": " + fuel[j].prix + " €/L </li>");
+					}
+					else
+					{
+						popupContent += ("<li> Prix indisponible </li>");
+					}
 				}
 				popupContent += ("</ul></a>");
 			}
@@ -198,7 +205,7 @@ function init()
 {
 	if (navigator.geolocation)
 	{
-		navigator.geolocation.getCurrentPosition(showMyPosition, errorHandler, {enableHighAccuracy:true, timeout: 50000, maximumAge: 0});
+		window.navigator.geolocation.watchPosition(showMyPosition, errorHandler, {enableHighAccuracy: true, timeout: 5000,maximumAge: 0});
 	}
 	else 
 	{
@@ -246,11 +253,27 @@ function showMyPosition(position)
 		{
 			mapOnClick();
 		});
+		
+		window.setInterval(
+			function ()
+			{
+				init();
+			}
+			, 15000 //check every 15 seconds
+		);
 	}
 	else
 	{
 		myPosition.setLatLng(latLng).update();
 		myPositionRadius.setLatLng(latLng).update();
+		if (routeInitialized)
+		{
+			console.log("recalcul route");
+			var waypoints = route.getWaypoints();
+			waypoints[0] = latLng;
+			route.setWaypoints(waypoints);
+			route.route();
+		}
 	}
 
 	$(".waitPosition").hide();
@@ -259,24 +282,27 @@ function showMyPosition(position)
 
 function errorHandler(error)
 {
-	switch(error.code)
+	if(!mapInitialized)
 	{
-        case error.TIMEOUT:
-            init();
-            break;
+		switch(error.code)
+		{
+			case error.TIMEOUT:
+				init();
+				break;
 
-        case error.PERMISSION_DENIED:
-            alert("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
-            break;
+			case error.PERMISSION_DENIED:
+				alert("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
+				break;
 
-        case error.POSITION_UNAVAILABLE:
-            alert("Erreur : La position n'a pas pu être déterminée.");
-            break;
+			case error.POSITION_UNAVAILABLE:
+				alert("Erreur : La position n'a pas pu être déterminée.");
+				break;
 
-        default:
-            alert("Erreur "+error.code+" : "+error.message);
-            break;
-    }
+			default:
+				alert("Erreur "+error.code+" : "+error.message);
+				break;
+		}
+	}
 }
 
 

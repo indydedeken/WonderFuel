@@ -1,4 +1,4 @@
-<html lang="fr-FR" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	  <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no"/>
@@ -7,6 +7,7 @@
       <link rel="stylesheet" type="text/css" href="lib/leaflet.css" />
 	  <link rel="stylesheet" type="text/css" href="css/index.css" />
 	  <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css" />
+	  <link rel="stylesheet" href="lib/leaflet-routing-machine.css" />
       <script type='text/javascript' src='lib/jquery.min.js'></script>
       <script type='text/javascript' src='lib/leaflet.js?3'></script>
       <script type='text/javascript' src='lib/leaflet-providers.js'></script>
@@ -20,7 +21,7 @@
    <body>
       <div id="map">
       </div>
-
+	  
       <div id="conteneurFiltre">
       	<div id ="filtre" class="leaflet-bar"> 
       		<form>
@@ -64,41 +65,43 @@
       			</div>
       		</form>
       	</div>
-            <div id="buttonsContainer">
-      	<button id="btnfiltre" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-
-            <button id="btnCentrage" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-screenshot"></span></button>
-           </div>
-      </div>
+        <div id="buttonsContainer">
+			<button id="btnfiltre" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+			<button id="btnCentrage" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-screenshot"></span></button>
+        </div>
+	</div>
+	
+	<div id="routeContainer">
+		<button id="btnRoute" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-road"></span> Route</button>
+	</div>
 
 		
-	  
-	  <div class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="test" id="startModal">
-		  <div class="modal-dialog modal-lg">
+	<div class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="test" id="startModal">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-			  <div class="modal-header">
-				<h3 class="modal-title">WonderFuel, find all gas stations around you</h3>
-			  </div>
-			  <div class="modal-body">
-				<p>This application allows you to locate all the gas station around your geolocation position</p>
-				<p> With this application you can easily search gas station with different filter : </p>
-				<p>- A default filter is loaded when you launch the application : He provide the ten closest station.</p>
-				<p>- You can make your search with the radius (The default radius is 5km).</p>
-				<p>- You can search gas stations per gas price (The ten less expensive are displayed in the radius).</p>
-				<p>-When you click on the gas sation marker, you can display the route from our position (Route is update).</p>
-			  </div>
-			  <div class="modal-footer">
-			  	<div class="waitPosition"><span class="glyphicon glyphicon-refresh"></span> Recherche en cours de votre position actuelle...</div>
-				<button id="start" type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-map-marker"></span> Start</button>
-			  </div>
+				<div class="modal-header">
+					<h3 class="modal-title">WonderFuel, find all gas stations around you</h3>
+				</div>
+				<div class="modal-body">
+					<p>This application allows you to locate all the gas station around your geolocation position</p>
+					<p> With this application you can easily search gas station with different filter : </p>
+					<p>- A default filter is loaded when you launch the application : He provide the ten closest station.</p>
+					<p>- You can make your search with the radius (The default radius is 5km).</p>
+					<p>- You can search gas stations per gas price (The ten less expensive are displayed in the radius).</p>
+					<p>-When you click on the gas sation marker, you can display the route from our position (Route is update).</p>
+				</div>
+				<div class="modal-footer">
+					<div class="waitPosition"><span class="glyphicon glyphicon-refresh"></span> Recherche en cours de votre position actuelle...</div>
+					<button id="start" type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-map-marker"></span> Start</button>
+				</div>
 			</div>
-		  </div>
 		</div>
+	</div>
 		
-		<div id="spinner" class="spinner" style="display:none;">
-			<img id="img-spinner" src="img/spinner.gif" alt="Loading"/>
-		</div>
+	<div id="spinner" class="spinner" style="display:none;">
+		<img id="img-spinner" src="img/spinner.gif" alt="Loading"/>
+	</div>
 
-      <script type='text/javascript' src='js/initialize.js'></script>
+    <script type='text/javascript' src='js/initialize.js'></script>
    </body>
 </html>

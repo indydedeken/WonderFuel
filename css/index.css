@@ -7,7 +7,9 @@
 }
 
 .leaflet-routing-container {
+	background-color: white;
 	display: none;
+	padding: 5px;
 }
 
 .waitPosition{
@@ -94,7 +96,7 @@
 }
 
 .leaflet-control-attribution{
-	display: none;
+	/*display: none;*/
 }
 
 @media screen and (max-width: 470px){
@@ -102,6 +104,10 @@
 	#filtre{
 		padding: 5px;
   		width: 100%;
+	}
+	
+	.leaflet-routing-container {
+		width: 100%;
 	}
 }
 
@@ -117,4 +123,17 @@
 float:left;
 margin-left:10px;
 
+}
+
+/* ---------- ROUTE ---------- */
+
+#routeContainer{
+	top: 10px;   
+	position: absolute;
+	margin: auto;
+	right: 10px;
+	float: right;
+	display:none;
+	z-index:2000;
+	width: auto;
 }

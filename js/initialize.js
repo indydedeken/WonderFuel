@@ -65,7 +65,8 @@ function displayRouting(ind)
 	if (!routeInitialized)
 	{
 		route = L.Routing.control({
-			plan: new L.Routing.plan([myPosition.getLatLng(),results[ind].getLatLng()],{addWaypoints: false, draggableWaypoints: false})
+			plan: new L.Routing.plan([myPosition.getLatLng(),results[ind].getLatLng()],{addWaypoints: false, draggableWaypoints: false}),
+			language: 'fr'
 		}).addTo(map);
 		routeInitialized = true;
 	}
@@ -77,6 +78,7 @@ function displayRouting(ind)
 		route.setWaypoints(waypoints);
 		route.route();
 	}
+	$("#routeContainer").show();
 }
 
 function mapOnClick()
@@ -107,7 +109,12 @@ function createMarkers(listeStations)
 {
 	function displayState(station, ind)
 	{
-		var currentHours = new Date().getHours() + ":" + new Date().getMinutes();
+		var currentHours = new Date().getHours();
+		if (currentHours < 10) 
+		{
+			currentHours = "0" + currentHours;
+		}
+		currentHours =  currentHours + ":" + new Date().getMinutes()
 		
 		if (station.heureOuverture && station.heureFermeture)
 		{
@@ -286,6 +293,13 @@ function clearMarkers(){
 	}
 }
 
+function showRoutePanel()
+{
+	$(".leaflet-routing-container").toggle();
+	$('#filtre').hide();
+	map.closePopup();
+}
+
 $(document).ready(function(){
 
 	$('#startModal').modal({
@@ -303,6 +317,8 @@ $(document).ready(function(){
 	$('#btnfiltre').on('click',displayfilters);
 
 	$('#btnCentrage').on('click',centrage);
+	
+	$('#btnRoute').on("click", showRoutePanel);
 		
 	init();
 
@@ -447,5 +463,6 @@ $(document).ready(function(){
 	function centrage()
 	{
 		map.setView(myPosition.getLatLng(), zoom);
+		map.closePopup();
 	}
 });

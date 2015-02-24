@@ -207,8 +207,7 @@ function init()
 	}
 	else 
 	{
-		$('#messageErreur').html("Erreur : Votre navigateur ne supporte pas la géolocation") ;
-        $('#messageErreur').css("display", "block");
+		alert("Your Browser does not support GeoLocation.");
 	}
 }
 
@@ -232,14 +231,13 @@ function showMyPosition(position)
 
 		//Test sur la date : si supérieur ou égal à 19h alors on passe en mode nuit
 
-		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6)
-		{
+		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6){
+
 			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
-		}else
-		{
-			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
-			{
-				attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+
+		}else{
+
+			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
 				subdomains: ['otile1','otile2','otile3','otile4']
 			}).addTo( map );
 
@@ -253,14 +251,20 @@ function showMyPosition(position)
 			mapOnClick();
 		});
 		
-		window.setInterval(function (){init();}, 15000);
+		window.setInterval(
+			function ()
+			{
+				init();
+			}
+			, 15000 //check every 15 seconds
+		);
 	}
 	else
 	{
 		if (myPosition && myPositionRadius)
 		{
-			myPosition.setLatLng(latLng);
-			myPositionRadius.setLatLng(latLng);
+			myPosition.setLatLng(latLng).update();
+			myPositionRadius.setLatLng(latLng).update();
 			if (routeInitialized)
 			{
 				var waypoints = route.getWaypoints();
@@ -286,19 +290,16 @@ function errorHandler(error)
 				break;
 
 			case error.PERMISSION_DENIED:
-            $('#messageErreur').html("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.") ;
-            $('#messageErreur').css("display", "block");
-            break;
+				alert("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
+				break;
 
-            case error.POSITION_UNAVAILABLE:
-            $('#messageErreur').html("Erreur : La position n'a pas pu être déterminée.") ;
-            $('#messageErreur').css("display", "block");
-            break;
+			case error.POSITION_UNAVAILABLE:
+				alert("Erreur : La position n'a pas pu être déterminée.");
+				break;
 
-            default:
-            $('#messageErreur').html("Erreur "+error.code+" : "+error.message) ;
-            $('#messageErreur').css("display", "block");
-            break;
+			default:
+				alert("Erreur "+error.code+" : "+error.message);
+				break;
 		}
 	}
 }
@@ -353,7 +354,8 @@ $(document).ready(function(){
 		$('#choiceServices option[value="tout"]').attr("selected",true);
 
 		distance = $( this ).val();
-		myPositionRadius.setRadius(1000*distance);
+		map.removeLayer(myPositionRadius);
+		myPositionRadius = L.circle(latLng, 1000*distance, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
 		
 		// On set le zoom en fonction du rayon du cercle de recherche
 		zoom = (-1/5)* distance  + 14;

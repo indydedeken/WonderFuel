@@ -6,25 +6,27 @@
 	border: 1px solid;
 }
 
-.leaflet-routing-container {
+.leaflet-routing-container 
+{
 	background-color: white;
 	display: none;
 	padding: 5px;
 }
 
-.waitPosition{
+.waitPosition
+{
 	display: inline-block;
 }
 
-#messageErreur{
-
+#messageErreur
+{
 	display:none;
-
 }
 
 /* --------- Loader ----------------- */
 
-.spinner {
+.spinner 
+{
     text-align:center;
     z-index: 1234;
     overflow: auto;
@@ -37,7 +39,8 @@
     height: 100%; /*hight of the spinner gif +2px to fix IE8 issue */
 }
 
-#img-spinner {
+#img-spinner 
+{
 	position: fixed;
     top: 50%;
     left: 50%;
@@ -48,31 +51,37 @@
 }
 
 /* --------- Popup Content ---------- */
-.cercleLegende {
+.cercleLegende 
+{
     border-radius:50%;
     border:1px solid black;
 	display: inline-block;
 	color: black !important;
 }
 
-.opened {
+.opened 
+{
     background: rgb(0,255,0) !important;
 }
 
-.closed {
+.closed 
+{
     background: rgb(255,0,0) !important;
 }
 
-.goBtn {
+.goBtn 
+{
 	width: 95%;
 	margin: 2%;
 }
 
-.listPrice {
+.listPrice 
+{
 	margin-bottom: 5px;
 }
 
-.listServices {
+.listServices 
+{
 	margin-top: 5px;
 }
 
@@ -89,51 +98,50 @@
     padding: 25px;
 }
 
-#btnfiltre{
+#btnfiltre
+{
     display: block;
     float:left;
 }
 
-#conteneurFiltre{
+#conteneurFiltre
+{
 	bottom: 10px;   
 	position: absolute;
 	margin: auto;
 	left: 10px;
 }
 
-.leaflet-control-attribution{
-	/*display: none;*/
-}
-
-@media screen and (max-width: 470px){
-
-	#filtre{
+@media screen and (max-width: 470px)
+{
+	#filtre
+	{
 		padding: 5px;
   		width: 100%;
 	}
 	
-	.leaflet-routing-container {
+	.leaflet-routing-container 
+	{
 		width: 100%;
 	}
 }
 
 
-#buttonsContainer{
-
+#buttonsContainer
+{
 	width: 100%;
-
 }
 
-#btnCentrage{
-
-float:left;
-margin-left:10px;
-
+#btnCentrage
+{
+	float:left;
+	margin-left:10px;
 }
 
 /* ---------- ROUTE ---------- */
 
-#routeContainer{
+#routeContainer
+{
 	top: 10px;   
 	position: absolute;
 	margin: auto;
@@ -144,6 +152,7 @@ margin-left:10px;
 	width: auto;
 }
 
-#btnRoute {
+#btnRoute 
+{
 	margin: 5px;
 }

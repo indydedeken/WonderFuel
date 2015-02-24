@@ -137,66 +137,73 @@ function createMarkers(listeStations)
 			return "<span class='cercleLegende badge'>"+ind+"</span> ";
 		}
 	}
-		var i, j;
-		var fuel;
-		var popupContent;
-		var markerIcon;
+	
+	var i, j;
+	var fuel;
+	var markerIcon;
 
-		// On vide la liste
-		results.length = 0; 
+	// On vide la liste
+	results.length = 0; 
 
- 		for (i=0;i<listeStations.length;i++)
+ 	for (i=0;i<listeStations.length;i++)
+	{
+		var popupContent = $('#popupTemplate').clone();
+		fuel = listeStations[i].prix;
+		popupContent.find("address b").html(displayState(listeStations[i], i+1) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal);
+		if(listeStations[i].prix.length != 0)
+		{
+			popupContent.find(".list-group .listPrice .badge").text(listeStations[i].prix.length);
+			for(j=0;j<fuel.length;j++)
+			{
+				if (fuel[j].nom != undefined)
+				{
+					popupContent.find(".list-group .listPrice ul").append("<li>" + fuel[j].nom  + ": " + fuel[j].prix + " €/L </li>");
+				}
+				else
+				{
+					popupContent.find(".list-group .listPrice ul").append("<li> Prix indisponible </li>");
+				}
+			}
+		}
+		else
+		{
+			popupContent.find(".list-group .listPrice").append("prix indisponibles <br>");
+		}
+			
+		if(listeStations[i].services.length != 0)
+		{
+			var services = listeStations[i].services;
+			popupContent.find(".list-group .listServices .badge").text(listeStations[i].services.length);
+			for(j=0;j<services.length;j++)
+			{
+				popupContent.find(".list-group .listServices ul").append("<li>" + services[j]  + "</li>");
+			}
+		}
+		else
+		{
+			popupContent.find(".list-group .listServices").append("</div>services indisponibles <br>");
+		}
+		
+		if (i <= 2)
+		{
+			markerIcon = firstIcon;
+		}
+		else
 		{
 			markerIcon = stationIcon;
-			fuel = listeStations[i].prix;
-			popupContent = ("<address><b>" + displayState(listeStations[i], i+1) + listeStations[i].ville + " - " + listeStations[i].adresse + " - " + listeStations[i].codepostal + "</b></address>");
-			if(listeStations[i].prix.length != 0)
-			{
-				popupContent += ("<div class='list-group'><a href='#' class='list-group-item active listPrice'><span class='glyphicon glyphicon-euro'></span> Prix <span class='badge'>" + listeStations[i].prix.length + "</span>");
-				popupContent += ("<ul>");
-				for(j=0;j<fuel.length;j++)
-				{
-					if (fuel[j].nom != undefined)
-					{
-						popupContent += ("<li>" + fuel[j].nom  + ": " + fuel[j].prix + " €/L </li>");
-					}
-					else
-					{
-						popupContent += ("<li> Prix indisponible </li>");
-					}
-				}
-				popupContent += ("</ul></a>");
-			}
-			else
-			{
-				popupContent += "prix indisponibles <br>"
-			}
-			
-			if(listeStations[i].services.length != 0)
-			{
-				var services = listeStations[i].services;
-				popupContent += ("<a href='#' class='list-group-item listServices'><span class='glyphicon glyphicon-wrench'></span> Services <span class='badge'>" + listeStations[i].services.length + "</span>");
-				popupContent += ("<ul>");
-				for(j=0;j<services.length;j++)
-				{
-					popupContent += ("<li>" + services[j]  + "</li>");
-				}
-				popupContent += ("</ul></a></div>");
-			}
-			else
-			{
-				popupContent += "</div>services indisponibles <br>"
-			}
-		
-			if (i <= 2)
-			{
-				markerIcon = firstIcon;
-			}
-			
-			popupContent += "<button class='btn btn-primary goBtn' onclick='(function(value){ displayRouting(value);}("+i+"));'><span class='glyphicon glyphicon-road'></span> Go !</button>";
-			results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: markerIcon}).bindPopup(popupContent));
-			results[i].addTo(map);
 		}
+		
+		popupContent.find(".goBtn").on("click", (function(value)
+		{
+            return function()
+			{
+                displayRouting(value);
+            }
+        })(i));
+		
+		results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: markerIcon}).bindPopup(popupContent.get(0)));
+		results[i].addTo(map);
+	}
 }
 
 function init()
@@ -235,14 +242,10 @@ function showMyPosition(position)
 		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6)
 		{
 			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
-		}else
+		}
+		else
 		{
-			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
-			{
-				attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
-				subdomains: ['otile1','otile2','otile3','otile4']
-			}).addTo( map );
-
+			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',{subdomains: ['otile1','otile2','otile3','otile4']}).addTo( map );
 		}
 		
 		mapInitialized = true;

@@ -232,13 +232,13 @@ function showMyPosition(position)
 
 		//Test sur la date : si supérieur ou égal à 19h alors on passe en mode nuit
 
-		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6){
-
+		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6)
+		{
 			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
-
-		}else{
-
-			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+		}else
+		{
+			L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
+			{
 				attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
 				subdomains: ['otile1','otile2','otile3','otile4']
 			}).addTo( map );
@@ -259,8 +259,8 @@ function showMyPosition(position)
 	{
 		if (myPosition && myPositionRadius)
 		{
-			myPosition.setLatLng(latLng).update();
-			myPositionRadius.setLatLng(latLng).update();
+			myPosition.setLatLng(latLng);
+			myPositionRadius.setLatLng(latLng);
 			if (routeInitialized)
 			{
 				var waypoints = route.getWaypoints();
@@ -353,8 +353,7 @@ $(document).ready(function(){
 		$('#choiceServices option[value="tout"]').attr("selected",true);
 
 		distance = $( this ).val();
-		map.removeLayer(myPositionRadius);
-		myPositionRadius = L.circle(latLng, 1000*distance, {color: 'red', fillColor: '#F2F2F2',fillOpacity: 0.5, weight : 2}).addTo(map);
+		myPositionRadius.setRadius(1000*distance);
 		
 		// On set le zoom en fonction du rayon du cercle de recherche
 		zoom = (-1/5)* distance  + 14;

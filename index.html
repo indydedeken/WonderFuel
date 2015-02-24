@@ -3,7 +3,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	  <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no"/>
 	  <link href="app-icons/favicon/favicon32.ico" rel="shortcut icon" type="image/x-icon" />
-	  <title>WonderFuel, find all gas stations around you</title>
+	  <title>WonderFuel, Toutes les stations essences autour de vous</title>
       <link rel="stylesheet" type="text/css" href="lib/leaflet.css" />
 	  <link rel="stylesheet" type="text/css" href="css/index.css" />
 	  <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css" />
@@ -37,9 +37,9 @@
       				</select>
       			</div>
       			<div class="form-group">
-      				<label for="choiceGaz">Filtrage par prix :</label>
+      				<label for="choiceGaz">Filtrer par prix :</label>
       				<select id="choiceGaz" class="form-control">
-                                    <option value="aucun">Aucun</option>
+                     <option value="aucun">Aucun</option>
       					<option value="Gazole">Gazole</option>
       					<option value="SP95">SP95</option>
       					<option value="SP98">SP98</option>
@@ -47,29 +47,29 @@
       				</select>
       			</div>
       			<div class="form-group">
-      				<label for="choiceServices">Services :</label>
+      				<label for="choiceServices">Filtrer par services :</label>
       				<select id="choiceServices" class="form-control">
       					<option value="tout">Tout</option>
-                                    <option value="Automate CB">Automate CB</option>
-                                    <option value="Boutique alimentaire">Boutique alimentaire</option>
-                                    <option value="Boutique non alimentaire">Boutique non alimentaire</option>
-                                    <option value="Vente de gaz domestique">Vente de gaz domestique</option>
-                                    <option value="GPL">GPL</option>
-                                    <option value="Carburant qualité supérieure">Carburant qualité supérieure</option>
-                                    <option value="Station de lavage">Station de lavage</option>
-                                    <option value="Lavage multi-programmes">Lavage multi-programmes</option>
-                                    <option value="Lavage haute-pression">Lavage haute-pression</option>
-                                    <option value="Station de gonflage">Station de gonflage</option>
-                                    <option value="Vente de fioul domestique">Vente de fioul domestique</option>
-                                    <option value="Toilettes publiques">Toilettes publiques</option>
-                                    <option value="Baie de service auto">Baie de service auto</option>
+                        <option value="Automate CB">Automate CB</option>
+                        <option value="Boutique alimentaire">Boutique alimentaire</option>
+                        <option value="Boutique non alimentaire">Boutique non alimentaire</option>
+                        <option value="Vente de gaz domestique">Vente de gaz domestique</option>
+                        <option value="GPL">GPL</option>
+                        <option value="Carburant qualité supérieure">Carburant qualité supérieure</option>
+                        <option value="Station de lavage">Station de lavage</option>
+                        <option value="Lavage multi-programmes">Lavage multi-programmes</option>
+                        <option value="Lavage haute-pression">Lavage haute-pression</option>
+                        <option value="Station de gonflage">Station de gonflage</option>
+                        <option value="Vente de fioul domestique">Vente de fioul domestique</option>
+                        <option value="Toilettes publiques">Toilettes publiques</option>
+                        <option value="Baie de service auto">Baie de service auto</option>
       				</select>
       			</div>
       		</form>
       	</div>
         <div id="buttonsContainer">
-			<button id="btnfiltre" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-			<button id="btnCentrage" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-screenshot"></span></button>
+			<button id="btnfiltre" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filtrer</button>
+			<button id="btnCentrage" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-screenshot"></span> Centrer</button>
         </div>
 	</div>
 	
@@ -82,20 +82,25 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title">WonderFuel, find all gas stations around you</h3>
+					<h3 class="modal-title" style="color: red;">WonderFuel, Toutes les stations essences autour de vous</h3>
 				</div>
 				<div class="modal-body">
-					<p>This application allows you to locate all the gas station around your geolocation position</p>
-					<p> With this application you can easily search gas station with different filter : </p>
-					<p>- A default filter is loaded when you launch the application : He provide the ten closest station.</p>
-					<p>- You can make your search with the radius (The default radius is 5km).</p>
-					<p>- You can search gas stations per gas price (The ten less expensive are displayed in the radius).</p>
-					<p>-When you click on the gas sation marker, you can display the route from our position (Route is update).</p>
+					<p>Cette application vous permet de trouver toutes les stations essences aux alentours de votre position GPS</p>
+					<p> Avec cette application, vous pouvez trouver facilement les différentes stations via de nombreux filtres : </p>
+					<p>- Par defaut, les plus proches stations sont affichées (dans un rayon de 5km)</p>
+					<p>- Vous pouvez ensuite modifier ensuite ce rayon de recherche dans les filtres.</p>
+					<p>- En choisissant un type d'essences dans les filtres, nous vous afficheront les stations proposant cette essence ordonnées des moins cher au plus cher.</p>
+					<br>
+					<p> WonderFuel donne également accès aux informations à jour des différentes stations. En cliquant sur le marqueur, vous accèderez a l'ensemble de ces informations dont le classement par rapport à ses conccurents.
+					Egalement, si le classement est vert, cela indique que la station est actuellement ouverte et rouge si celle-ci est fermé.
+					Enfin, en cliquant sur "GO", la route la plus rapide vers la station vous sera affichée et sera mis à jour en fonction de vos déplacements.</p>
+					
+					<h4 style="text-align: center;">Nous vous souhaitons une agréable expérience avec WonderFuel...</h4>
                <div id="messageErreur" class="alert alert-danger" role="alert"></div>
 				</div>
 				<div class="modal-footer">
 					<div class="waitPosition"><span class="glyphicon glyphicon-refresh"></span> Recherche en cours de votre position actuelle...</div>
-					<button id="start" type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-map-marker"></span> Start</button>
+					<button id="start" type="button" class="btn btn-success" data-dismiss="modal"><span class="glyphicon glyphicon-map-marker"></span> Start</button>
 				</div>
 			</div>
 		</div>
@@ -103,6 +108,25 @@
 		
 	<div id="spinner" class="spinner" style="display:none;">
 		<img id="img-spinner" src="img/spinner.gif" alt="Loading"/>
+	</div>
+	
+	<div class="hiddenTemplate" style="display: none;">
+		<div id="popupTemplate">
+			<address><b></b></address>
+			<div class='list-group'>
+				<a href='#' class='list-group-item active listPrice'>
+					<span class='glyphicon glyphicon-euro'></span> Prix <span class='badge'></span>
+					<ul>
+					</ul>
+				</a>
+				<a href='#' class='list-group-item listServices'>
+					<span class='glyphicon glyphicon-wrench'></span> Services <span class='badge'></span>
+					<ul>
+					</ul>
+				</a>
+			</div>
+			<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go !</button>
+		</div>
 	</div>
 
     <script type='text/javascript' src='js/initialize.js'></script>

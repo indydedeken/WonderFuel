@@ -4,7 +4,8 @@ function searchStations(positionActuelle, distance, fonctionDeRetour){
 	if(positionActuelle != null){
 		
 		// Function qui va récupérer le fichier ZIP et le décompresser pour en sortir le XML
-		JSZipUtils.getBinaryContent('http://localhost/datas', function(err, data) {
+		// http://localhost/datas
+		JSZipUtils.getBinaryContent('http://donnees.roulez-eco.fr/opendata/jour', function(err, data) {
 
 			if(err) {
 				throw err; 

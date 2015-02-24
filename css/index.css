@@ -16,6 +16,12 @@
 	display: inline-block;
 }
 
+#messageErreur{
+
+	display:none;
+
+}
+
 /* --------- Loader ----------------- */
 
 .spinner {

@@ -105,6 +105,11 @@ function localizeStations()
 	});
 }
 
+function makeRoutingCallback(ind)
+{
+  return function(){ displayRouting(ind);};
+}
+
 function createMarkers(listeStations)
 {
 	function displayState(station, ind)
@@ -193,13 +198,7 @@ function createMarkers(listeStations)
 			markerIcon = stationIcon;
 		}
 		
-		popupContent.find(".goBtn").on("click", (function(value)
-		{
-            return function()
-			{
-                displayRouting(value);
-            }
-        })(i));
+		popupContent.find(".goBtn").on("click", makeRoutingCallback(i));
 		
 		results.push(new fadeInMarker([listeStations[i].latitude, listeStations[i].longitude], {icon: markerIcon}).bindPopup(popupContent.get(0)));
 		results[i].addTo(map);
@@ -210,11 +209,12 @@ function init()
 {
 	if (navigator.geolocation)
 	{
-		window.navigator.geolocation.watchPosition(showMyPosition, errorHandler, {enableHighAccuracy: true, timeout: 5000,maximumAge: 0});
+		window.navigator.geolocation.watchPosition(showMyPosition, errorHandler, {enableHighAccuracy: true, timeout: 5000,maximumAge: 20000});
 	}
 	else 
 	{
-		alert("Your Browser does not support GeoLocation.");
+		$('#messageErreur').html("Votre navigateur ne supporte pas la géolocation") ;
+		$('#messageErreur').css("display", "block");
 	}
 }
 
@@ -237,7 +237,6 @@ function showMyPosition(position)
 		var currentdate = new Date(); 
 
 		//Test sur la date : si supérieur ou égal à 19h alors on passe en mode nuit
-
 		if(currentdate.getHours() >= 19 || currentdate.getHours() <= 6){
 
 			L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
@@ -261,7 +260,7 @@ function showMyPosition(position)
 			{
 				init();
 			}
-			, 15000 //check every 15 seconds
+			, 60000 //check every minutes
 		);
 	}
 	else
@@ -295,15 +294,18 @@ function errorHandler(error)
 				break;
 
 			case error.PERMISSION_DENIED:
-				alert("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.");
+				$('#messageErreur').html("Erreur : L'application n'a pas l'autorisation d'utiliser les ressources de geolocalisation.") ;
+				$('#messageErreur').css("display", "block");
 				break;
 
 			case error.POSITION_UNAVAILABLE:
-				alert("Erreur : La position n'a pas pu être déterminée.");
+				$('#messageErreur').html("Erreur : La position n'a pas pu être déterminée.") ;
+				$('#messageErreur').css("display", "block");
 				break;
 
 			default:
-				alert("Erreur "+error.code+" : "+error.message);
+				$('#messageErreur').html("Erreur "+error.code+" : "+error.message) ;
+				$('#messageErreur').css("display", "block");
 				break;
 		}
 	}

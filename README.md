@@ -16,3 +16,14 @@ De plus, il est possible de filtrer :
     - Le service : possibilité de choisir un service particulier. Dans ce cas, on affichera seulement les stations qui possède le service sélectionné.
     
 Pour finir, il y a une fonction afin de tracer la route qui mène vers une station sélectionné.
+
+Les technologies utilisées sont les suivantes : 
+
+    - Javascript
+    - HTML
+    - CSS
+    - Boostrap
+    - Les bibliothèques Javascript suivantes :
+        * Jquery
+        * Leaflet : API permettant d'interagir avec OpenStreetMap 
+        * jszip : API permettant de traiter des fichiers ZIP en Javascript

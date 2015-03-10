@@ -267,8 +267,8 @@ function showMyPosition(position)
 	{
 		if (myPosition && myPositionRadius)
 		{
-			myPosition.setLatLng(latLng).update();
-			myPositionRadius.setLatLng(latLng).update();
+			myPosition.setLatLng(latLng);
+			myPositionRadius.setLatLng(latLng);
 			if (routeInitialized)
 			{
 				var waypoints = route.getWaypoints();

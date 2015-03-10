@@ -5,9 +5,9 @@ function searchStations(positionActuelle, distance, fonctionDeRetour){
 		
 		// Function qui va récupérer le fichier ZIP et le décompresser pour en sortir le XML
 
-		// version WAMP : http://localhost/datas
-		// version trix firefoxOS : ./datas/prix.zip
-		// version PC : http://donnees.roulez-eco.fr/opendata/jour 
+		// version PC (avec WAMP) : http://localhost/datas
+		// version FirefoxOS : http://donnees.roulez-eco.fr/opendata/jour 
+		// version trix firefoxOS (pour tester) : ./datas/prix.zip
 		
 		JSZipUtils.getBinaryContent('./datas/prix.zip', function(err, data) {
 

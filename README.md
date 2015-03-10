@@ -27,3 +27,8 @@ Les technologies utilisées sont les suivantes :
         * Jquery
         * Leaflet : API permettant d'interagir avec OpenStreetMap 
         * jszip : API permettant de traiter des fichiers ZIP en Javascript
+
+L'application est testable de deux manière différentes :
+    
+    - sur FirefoxOS : dans ce cas, il faut installer l'application sur un terminal doté de Firefox OS
+    - sur Web : sous forme d'un site accessible à l'adresse suivante : http://195.154.73.134/WonderFuel/ . Attention : ce lien est temporaire.

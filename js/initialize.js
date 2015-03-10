@@ -6,7 +6,7 @@ var stations;
 var kmCircle;
 var latLng;
 var zoom = 13;
-var distance = 5;
+var distance = 2;
 var listeOfResultsInCircle;
 var listeOfResultFiltres = new Array();
 var gazChoisi;
@@ -209,7 +209,7 @@ function init()
 {
 	if (navigator.geolocation)
 	{
-		window.navigator.geolocation.watchPosition(showMyPosition, errorHandler, {enableHighAccuracy: true, timeout: 5000,maximumAge: 20000});
+		window.navigator.geolocation.watchPosition(showMyPosition, errorHandler, {enableHighAccuracy: true, timeout: 5000,maximumAge: 0});
 	}
 	else 
 	{

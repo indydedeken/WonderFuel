@@ -1,55 +1,50 @@
 <html lang="fr-FR" xmlns="http://www.w3.org/1999/xhtml">
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	  <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no"/>
-	  <link href="app-icons/favicon/favicon32.ico" rel="shortcut icon" type="image/x-icon" />
-	  <title>WonderFuel, Toutes les stations essences autour de vous</title>
-      <link rel="stylesheet" type="text/css" href="lib/leaflet.css" />
-	  <link rel="stylesheet" type="text/css" href="css/index.css" />
-	  <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css" />
-	  <link rel="stylesheet" href="lib/leaflet-routing-machine.css" />
-      <script type='text/javascript' src='lib/jquery.min.js'></script>
-      <script type='text/javascript' src='lib/leaflet.js?3'></script>
-      <script type='text/javascript' src='lib/leaflet-providers.js'></script>
-	  <script type='text/javascript' src='lib/leaflet-routing-machine.js'></script>
-	  <script type='text/javascript' src='lib/bootstrap/js/bootstrap.js'></script>
-	  <script type="text/javascript" src="lib/jszip.js"></script>
-	  <script type="text/javascript" src="lib/jszip-utils.js"></script>
-	  <script type='text/javascript' src='js/Datas.js'></script>
-   </head>
- 
-   <body>
-      <div id="map">
-      </div>
-	  
-      <div id="conteneurFiltre">
-      	<div id ="filtre" class="leaflet-bar"> 
-      		<form>
-      			<div class="form-group">
-      				<label for="choiceKmCircle">Distance :</label>
-      				 <select id="choiceKmCircle" class="form-control">
-      					<option value="2">2 km</option>
-      					<option value="4">4 km</option>
-      					<option value="6">6 km</option>
-      					<option value="8">8 km</option>
-                     <option value="10">10 km</option>
-                     <option value="15">15 km</option>
-      				</select>
-      			</div>
-      			<div class="form-group">
-      				<label for="choiceGaz">Filtrer par prix :</label>
-      				<select id="choiceGaz" class="form-control">
-                     <option value="aucun">Aucun</option>
-      					<option value="Gazole">Gazole</option>
-      					<option value="SP95">SP95</option>
-      					<option value="SP98">SP98</option>
-      					<option value="E10">E10</option>
-      				</select>
-      			</div>
-      			<div class="form-group">
-      				<label for="choiceServices">Filtrer par services :</label>
-      				<select id="choiceServices" class="form-control">
-      					<option value="tout">Tout</option>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
+    <link href="app-icons/favicon/favicon32.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>WonderFuel, Toutes les stations essences autour de vous</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="lib/leaflet.css" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="lib/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="css/index.css" />
+
+</head>
+
+<body>
+    <main id="map"></main>
+
+    <div id="conteneurFiltre">
+        <div id="filtre" class="leaflet-bar">
+            <form>
+                <div class="form-group">
+                    <label for="choiceKmCircle">Distance :</label>
+                    <select id="choiceKmCircle" class="form-control">
+                        <option value="2">2 km</option>
+                        <option value="4">4 km</option>
+                        <option value="6">6 km</option>
+                        <option value="8">8 km</option>
+                        <option value="10">10 km</option>
+                        <option value="15">15 km</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="choiceGaz">Filtrer par prix :</label>
+                    <select id="choiceGaz" class="form-control">
+                        <option value="aucun">Aucun</option>
+                        <option value="Gazole">Gazole</option>
+                        <option value="SP95">SP95</option>
+                        <option value="SP98">SP98</option>
+                        <option value="E10">E10</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="choiceServices">Filtrer par services :</label>
+                    <select id="choiceServices" class="form-control">
+                        <option value="tout">Tout</option>
                         <option value="Automate CB">Automate CB</option>
                         <option value="Boutique alimentaire">Boutique alimentaire</option>
                         <option value="Boutique non alimentaire">Boutique non alimentaire</option>
@@ -63,73 +58,80 @@
                         <option value="Vente de fioul domestique">Vente de fioul domestique</option>
                         <option value="Toilettes publiques">Toilettes publiques</option>
                         <option value="Baie de service auto">Baie de service auto</option>
-      				</select>
-      			</div>
-      		</form>
-      	</div>
-        <div id="buttonsContainer">
-			<button id="btnfiltre" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filtrer</button>
-			<button id="btnCentrage" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-screenshot"></span> Centrer</button>
+                    </select>
+                </div>
+            </form>
         </div>
-	</div>
-	
-	<div id="routeContainer">
-		<button id="btnRoute" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-road"></span> Route</button>
-	</div>
+        <div id="buttonsContainer">
+            <button id="btnfiltre" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span> Filtrer</button>
+            <button id="btnCentrage" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-screenshot"></span> Centrer</button>
+        </div>
+    </div>
 
-		
-	<div class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="test" id="startModal">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" style="color: #428bca;">WonderFuel, Toutes les stations essences autour de vous</h3>
-				</div>
-				<div class="modal-body">
-					<p>Cette application vous permet de trouver toutes les stations essences aux alentours de votre position GPS</p>
-					<p> Avec cette application, vous pouvez trouver facilement les différentes stations via de nombreux filtres : </p>
-					<p>- Par defaut, les plus proches stations sont affichées (dans un rayon de 2km)</p>
-					<p>- Vous pouvez ensuite modifier ce rayon de recherche dans les filtres.</p>
-					<p>- En choisissant un type de carburant dans les filtres, nous vous afficheront les stations proposant ce carburant ordonnées des moins cher au plus cher ( une coupe s'affichera pour indiquer que la station fait partie du top 3 
-               des moins chères</p>
-					<br>
-					<p> WonderFuel donne également accès aux informations à jour des différentes stations. En cliquant sur le marqueur, vous accèderez a l'ensemble de ces informations dont le classement par rapport à ses conccurents.
-					Egalement, si le classement est vert, cela indique que la station est actuellement ouverte et rouge si celle-ci est fermé.
-					Enfin, en cliquant sur "GO", la route la plus rapide vers la station vous sera affichée et sera mis à jour en fonction de vos déplacements.</p>
-					
-					<h4 style="text-align: center;">Nous vous souhaitons une agréable expérience avec WonderFuel...</h4>
-               <div id="messageErreur" class="alert alert-danger" role="alert"></div>
-				</div>
-				<div class="modal-footer">
-					<div class="waitPosition"><span class="glyphicon glyphicon-refresh"></span> Recherche en cours de votre position actuelle...</div>
-					<button id="start" type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-map-marker"></span> Start</button>
-				</div>
-			</div>
-		</div>
-	</div>
-		
-	<div id="spinner" class="spinner" style="display:none;">
-		<img id="img-spinner" src="img/spinner.gif" alt="Loading"/>
-	</div>
-	
-	<div class="hiddenTemplate" style="display: none;">
-		<div id="popupTemplate">
-			<address><b></b></address>
-			<div class='list-group'>
-				<a href='#' class='list-group-item active listPrice'>
-					<span class='glyphicon glyphicon-euro'></span> Prix <span class='badge'></span>
-					<ul>
-					</ul>
-				</a>
-				<a href='#' class='list-group-item listServices'>
-					<span class='glyphicon glyphicon-wrench'></span> Services <span class='badge'></span>
-					<ul>
-					</ul>
-				</a>
-			</div>
-			<button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go !</button>
-		</div>
-	</div>
+    <div id="routeContainer">
+        <button id="btnRoute" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-road"></span> Route</button>
+    </div>
 
-    <script type='text/javascript' src='js/initialize.js'></script>
-   </body>
+    <section class="modal" tabindex="-1" role="dialog" aria-hidden="true" id="startModal">
+        <article class="modal-lg modal-dialog modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">WonderFuel, Toutes les stations essences autour de vous</h3>
+            </div>
+            <div class="modal-body">
+                <p>Cette application vous permet de trouver toutes les stations essences aux alentours de votre position GPS.<br><br>
+                    Avec cette application, vous pouvez trouver facilement les différentes stations via de nombreux filtres :
+                    <ul>
+                        <li>- Par defaut, les plus proches stations sont affichées (dans un rayon de 2km)</li>
+                        <li>- Vous pouvez ensuite modifier ce rayon de recherche dans les filtres.</li>
+                        <li>- En choisissant un type de carburant dans les filtres, nous vous afficheront les stations proposant ce carburant ordonnées des moins cher au plus cher (une coupe s'affichera pour indiquer que la station fait partie du top 3 des
+                            moins chères.</li>
+                    </ul>
+                    <br>WonderFuel donne également accès aux informations à jour des différentes stations. En cliquant sur le marqueur, vous accèderez a l'ensemble de ces informations dont le classement par rapport à ses conccurents. Egalement, si le classement
+                    est vert, cela indique que la station est actuellement ouverte et rouge si celle-ci est fermé. Enfin, en cliquant sur "GO", la route la plus rapide vers la station vous sera affichée et sera mis à jour en fonction de vos déplacements.
+                </p>
+                <h4 class="center">Nous vous souhaitons une agréable expérience avec WonderFuel...</h4>
+                <div id="messageErreur" class="alert alert-danger" role="alert"></div>
+            </div>
+            <nav class="modal-footer">
+                <div class="waitPosition"><span class="glyphicon glyphicon-refresh"></span> Recherche en cours de votre position actuelle...</div>
+                <button id="start" type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-map-marker"></span> Start</button>
+            </nav>
+        </article>
+    </section>
+
+    <div id="spinner" class="spinner hidden">
+        <img id="img-spinner" src="img/spinner.gif" alt="Loading" />
+    </div>
+
+    <div class="hiddenTemplate hidden">
+        <div id="popupTemplate">
+            <address><b></b></address>
+            <div class='list-group'>
+                <a href='#' class='list-group-item active listPrice'>
+                    <span class='glyphicon glyphicon-euro'></span> Prix <span class='badge'></span>
+                    <ul>
+                    </ul>
+                </a>
+                <a href='#' class='list-group-item listServices'>
+                    <span class='glyphicon glyphicon-wrench'></span> Services <span class='badge'></span>
+                    <ul>
+                    </ul>
+                </a>
+            </div>
+            <button class='btn btn-primary goBtn'><span class='glyphicon glyphicon-road'></span> Go !</button>
+        </div>
+    </div>
+
+    <script src='lib/jquery.min.js'></script>
+    <script src='lib/leaflet.js?3'></script>
+    <script src='lib/leaflet-providers.js'></script>
+    <script src='lib/leaflet-routing-machine.js'></script>
+    <script src='lib/bootstrap/js/bootstrap.js'></script>
+    <script type="text/javascript" src="lib/jszip.js"></script>
+    <script type="text/javascript" src="lib/jszip-utils.js"></script>
+
+    <script src='js/Datas.js'></script>
+    <script src='js/initialize.js'></script>
+</body>
+
 </html>
